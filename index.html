@@ -7,166 +7,47 @@
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  /* T1 Brand Colors */
-  --red-400: #E26153;
-  --red-500: #DB3B2B;
-  --red-700: #CC0000;
-  --red-50: #FEF4F4;
-  --red-100: #F9D2D2;
-  --red-200: #F1B0A9;
-
-  --gray-50: #F8F8F8;
-  --gray-100: #F3F3F3;
-  --gray-200: #E7E7E7;
-  --gray-300: #DBDBDB;
-  --gray-400: #CFCFCF;
-  --gray-500: #C3C3C3;
-  --gray-600: #9CA3AF;
-
-  --oxford: #4C4C4C;
-  --black: #000000;
-  --white: #FFFFFF;
-
-  --blue-500: #2180FF;
-  --green-500: #4FC153;
-  --green-100: #F0FDF4;
-  --yellow-500: #EDBD55;
-
-  /* Landing shadows */
+  --red-400: #E26153; --red-500: #DB3B2B; --red-700: #CC0000;
+  --red-50: #FEF4F4; --red-100: #F9D2D2; --red-200: #F1B0A9;
+  --gray-50: #F8F8F8; --gray-100: #F3F3F3; --gray-200: #E7E7E7;
+  --gray-300: #DBDBDB; --gray-500: #C3C3C3; --gray-600: #9CA3AF;
+  --oxford: #4C4C4C; --black: #000000; --white: #FFFFFF;
+  --green-500: #4FC153; --green-100: #F0FDF4; --yellow-500: #EDBD55;
   --shadow-card: 0 0 25px 2px rgba(0,0,0,0.06);
-  --shadow-card-hover: 0 20px 50px rgba(0,0,0,0.08);
   --shadow-header: 0 0 25px 2px rgba(0,0,0,0.06);
-
-  /* Light mode */
-  --bg: #ffffff;
-  --bg-page: var(--gray-50);
-  --bg-card: #ffffff;
-  --bg-sidebar: #ffffff;
-  --text: var(--black);
-  --text-secondary: var(--oxford);
-  --text-muted: var(--gray-600);
-  --border: var(--gray-200);
-  --border-strong: var(--gray-300);
-  --input-bg: #ffffff;
+  --bg: #ffffff; --bg-page: #F8F8F8; --bg-card: #ffffff; --bg-sidebar: #ffffff;
+  --text: #000000; --text-secondary: #4C4C4C; --text-muted: #9CA3AF;
+  --border: #E7E7E7; --border-strong: #DBDBDB; --input-bg: #ffffff;
 }
-
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0a0a0a;
-    --bg-page: #111111;
-    --bg-card: #1a1a1a;
-    --bg-sidebar: #111111;
-    --text: #f5f5f5;
-    --text-secondary: #c0c0c0;
-    --text-muted: #707070;
-    --border: #2a2a2a;
-    --border-strong: #3a3a3a;
-    --input-bg: #1a1a1a;
-    --gray-50: #1a1a1a;
-    --gray-100: #222222;
-    --gray-200: #2a2a2a;
-    --red-50: #1f0a0a;
-    --red-100: #2a1010;
+    --bg: #0a0a0a; --bg-page: #111111; --bg-card: #1a1a1a; --bg-sidebar: #111111;
+    --text: #f5f5f5; --text-secondary: #c0c0c0; --text-muted: #707070;
+    --border: #2a2a2a; --border-strong: #3a3a3a; --input-bg: #1a1a1a;
+    --gray-50: #1a1a1a; --gray-100: #222222; --gray-200: #2a2a2a;
+    --red-50: #1f0a0a; --red-100: #2a1010; --green-100: #0a1f0a;
   }
 }
-
-body {
-  font-family: 'Inter', -apple-system, sans-serif;
-  background: var(--bg-page);
-  color: var(--text);
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* ── LAYOUT ── */
+body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg-page); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
 .app { display: grid; grid-template-rows: 52px 1fr; height: 100vh; overflow: hidden; }
-
-/* ── TOPBAR ── */
-.topbar {
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 28px;
-  box-shadow: var(--shadow-header);
-  position: relative; z-index: 10;
-}
-@media (prefers-color-scheme: dark) {
-  .topbar { background: rgba(10,10,10,0.92); }
-}
-
+.topbar { background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 28px; box-shadow: var(--shadow-header); position: relative; z-index: 10; }
+@media (prefers-color-scheme: dark) { .topbar { background: rgba(10,10,10,0.92); } }
 .logo-wrap { display: flex; align-items: center; gap: 10px; }
-.logo-symbol {
-  width: 28px; height: 28px;
-  background: var(--black);
-  border-radius: 7px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-@media (prefers-color-scheme: dark) {
-  .logo-symbol { background: #ffffff; }
-}
-.logo-symbol svg { width: 16px; height: 16px; }
-.logo-name {
-  font-family: 'Sora', sans-serif;
-  font-weight: 400;
-  font-size: 17px;
-  letter-spacing: -0.3px;
-  color: var(--text);
-}
+.logo-symbol { width: 28px; height: 28px; background: var(--black); border-radius: 7px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+@media (prefers-color-scheme: dark) { .logo-symbol { background: #fff; } }
+.logo-name { font-family: 'Sora', sans-serif; font-weight: 400; font-size: 17px; letter-spacing: -0.3px; color: var(--text); }
 .logo-name span { color: var(--red-500); }
-
-.topbar-center {
-  position: absolute; left: 50%; transform: translateX(-50%);
-  display: flex; align-items: center; gap: 6px;
-}
-.sprint-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-500); }
-.sprint-label { font-size: 12px; color: var(--text-muted); font-weight: 500; }
-
-.bench-pill {
-  font-family: 'Inter', sans-serif;
-  font-size: 12px; font-weight: 600;
-  padding: 5px 14px; border-radius: 100px;
-  background: var(--red-50);
-  color: var(--red-500);
-  border: 1px solid var(--red-100);
-  transition: all 0.3s;
-}
-
-/* ── MAIN GRID ── */
+.topbar-center { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; }
+.nav-tab { font-size: 13px; font-weight: 500; padding: 6px 14px; border-radius: 20px; cursor: pointer; color: var(--text-muted); transition: all 0.15s; border: 1px solid transparent; }
+.nav-tab:hover { color: var(--text-secondary); }
+.nav-tab.active { background: var(--red-50); color: var(--red-500); border-color: var(--red-100); font-weight: 600; }
+.bench-pill { font-size: 12px; font-weight: 600; padding: 5px 14px; border-radius: 100px; background: var(--red-50); color: var(--red-500); border: 1px solid var(--red-100); }
 .main { display: grid; grid-template-columns: 200px 1fr 272px; height: calc(100vh - 52px); overflow: hidden; }
-
-/* ── SIDEBAR ── */
-.sidebar {
-  background: var(--bg-sidebar);
-  border-right: 1px solid var(--border);
-  padding: 20px 0;
-  overflow-y: auto;
-  display: flex; flex-direction: column; gap: 0;
-}
+.sidebar { background: var(--bg-sidebar); border-right: 1px solid var(--border); padding: 20px 0; overflow-y: auto; }
 .sb-section { padding: 0 12px; margin-bottom: 8px; }
-.sb-label {
-  font-family: 'Inter', sans-serif;
-  font-size: 10px; font-weight: 600;
-  color: var(--text-muted);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 0 8px;
-  margin-bottom: 6px;
-  display: block;
-}
-.sb-item {
-  display: flex; align-items: center; gap: 9px;
-  padding: 8px 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background 0.12s;
-  margin-bottom: 1px;
-  text-decoration: none;
-}
+.sb-label { font-size: 10px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; padding: 0 8px; margin-bottom: 6px; display: block; }
+.sb-item { display: flex; align-items: center; gap: 9px; padding: 8px 10px; border-radius: 10px; cursor: pointer; transition: background 0.12s; margin-bottom: 1px; }
 .sb-item:hover { background: var(--gray-50); }
 .sb-item.active { background: var(--red-50); }
 .sb-item.active .sb-item-text { color: var(--red-500); font-weight: 600; }
@@ -174,251 +55,119 @@ body {
 .sb-item-text { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
 .sb-item-emoji { font-size: 14px; flex-shrink: 0; }
 .sb-divider { height: 1px; background: var(--border); margin: 10px 12px; }
-
 .h-item { padding: 7px 8px; border-radius: 8px; cursor: pointer; }
 .h-item:hover { background: var(--gray-50); }
 .h-meta { font-size: 10px; color: var(--text-muted); margin-bottom: 2px; font-weight: 500; }
 .h-text { font-size: 12px; color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-/* ── CENTER ── */
 .center { display: flex; flex-direction: column; overflow: hidden; background: var(--bg-page); }
-
-.tabs-bar {
-  background: var(--bg-card);
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: flex-end;
-  padding: 0 24px;
-  gap: 0;
-}
-.tab {
-  font-family: 'Inter', sans-serif;
-  font-size: 13px; font-weight: 500;
-  padding: 14px 18px 12px;
-  cursor: pointer;
-  color: var(--text-muted);
-  border-bottom: 2px solid transparent;
-  transition: all 0.15s;
-  white-space: nowrap;
-}
-.tab:hover { color: var(--text-secondary); }
-.tab.active { color: var(--red-500); border-bottom-color: var(--red-500); font-weight: 600; }
-
 .content-scroll { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
-
-/* ── CARDS ── */
-.card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: var(--shadow-card);
-}
-.card-label {
-  font-family: 'Inter', sans-serif;
-  font-size: 10px; font-weight: 600;
-  color: var(--text-muted);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 14px;
-  display: block;
-}
-
-/* Product banner */
-.prod-banner {
-  background: linear-gradient(135deg, var(--red-50) 0%, #fff 100%);
-  border: 1px solid var(--red-100);
-  border-radius: 18px;
-  padding: 16px 20px;
-  display: flex; align-items: center; justify-content: space-between;
-}
-@media (prefers-color-scheme: dark) {
-  .prod-banner { background: linear-gradient(135deg, #1f0a0a 0%, #1a1a1a 100%); }
-}
+.card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 20px; box-shadow: var(--shadow-card); }
+.card-label { font-size: 10px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px; display: block; }
+.prod-banner { background: linear-gradient(135deg, var(--red-50) 0%, var(--bg-card) 100%); border: 1px solid var(--red-100); border-radius: 18px; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; }
 .prod-banner-label { font-size: 11px; color: var(--text-muted); margin-bottom: 3px; font-weight: 500; }
 .prod-banner-name { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 400; color: var(--text); }
 .prod-banner-emoji { font-size: 28px; }
-
-/* Param grid */
 .param-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .pf { display: flex; flex-direction: column; gap: 5px; }
 .pf.full { grid-column: 1/-1; }
-.pf label {
-  font-size: 11px; font-weight: 600;
-  color: var(--text-muted);
-  letter-spacing: 0.05em;
-}
-.pf select, .pf textarea {
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 9px 12px;
-  background: var(--input-bg);
-  color: var(--text);
-  outline: none;
-  transition: border-color 0.15s;
-  appearance: none;
-}
+.pf label { font-size: 11px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.05em; }
+.pf select, .pf textarea { font-family: 'Inter', sans-serif; font-size: 13px; border: 1px solid var(--border); border-radius: 10px; padding: 9px 12px; background: var(--input-bg); color: var(--text); outline: none; transition: border-color 0.15s; appearance: none; }
 .pf select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 32px; }
 .pf select:focus, .pf textarea:focus { border-color: var(--red-400); }
 .pf textarea { resize: vertical; min-height: 76px; line-height: 1.55; }
-
-/* Multiplier */
 .mult-row { display: flex; align-items: center; gap: 14px; }
-.mult-row input[type=range] { flex: 1; accent-color: var(--red-500); height: 4px; }
+.mult-row input[type=range] { flex: 1; accent-color: var(--red-500); }
 .mult-num { font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 300; color: var(--red-500); min-width: 36px; }
-.mult-hint { font-size: 11px; color: var(--text-muted); margin-top: 6px; line-height: 1.5; }
-
-/* CTA Button — T1 primary landing style */
-.cta-btn {
-  width: 100%;
-  height: 45px;
-  background: var(--red-400);
-  color: white;
-  border: none;
-  border-radius: 18px;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
-  box-shadow: 0 4px 16px rgba(226,97,83,0.3);
-}
-.cta-btn:hover { background: var(--red-500); box-shadow: 0 6px 20px rgba(219,59,43,0.35); transform: translateY(-1px); }
+.cta-btn { width: 100%; height: 45px; background: var(--red-400); color: white; border: none; border-radius: 18px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.15s; box-shadow: 0 4px 16px rgba(226,97,83,0.3); }
+.cta-btn:hover { background: var(--red-500); transform: translateY(-1px); }
 .cta-btn:active { transform: translateY(0); }
 .cta-btn:disabled { background: var(--red-200); cursor: not-allowed; transform: none; box-shadow: none; }
-
-/* Output */
 .out-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
 .out-label { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 400; color: var(--text); }
 .out-actions { display: flex; gap: 8px; }
-.out-btn {
-  font-family: 'Inter', sans-serif;
-  font-size: 12px; font-weight: 600;
-  padding: 6px 14px;
-  border: 1px solid var(--border);
-  border-radius: 100px;
-  cursor: pointer;
-  background: transparent;
-  color: var(--text-secondary);
-  transition: all 0.12s;
-}
+.out-btn { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; padding: 6px 14px; border: 1px solid var(--border); border-radius: 100px; cursor: pointer; background: transparent; color: var(--text-secondary); transition: all 0.12s; }
 .out-btn:hover { border-color: var(--red-400); color: var(--red-400); }
-.out-body { font-size: 14px; line-height: 1.8; color: var(--text-secondary); white-space: pre-wrap; }
-
-/* Section dividers in output */
-.out-section { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+.out-section { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
 .out-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-.out-section-title {
-  font-size: 10px; font-weight: 600;
-  color: var(--text-muted);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
+.out-section-title { font-size: 10px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
 .out-section-body { font-size: 14px; line-height: 1.75; color: var(--text-secondary); }
-
-/* Variants */
-.variant-card {
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 14px;
-  cursor: pointer;
-  margin-bottom: 10px;
-  transition: all 0.15s;
-}
-.variant-card:hover { border-color: var(--gray-400); box-shadow: var(--shadow-card); }
+.variant-card { border: 1px solid var(--border); border-radius: 14px; padding: 14px; cursor: pointer; margin-bottom: 10px; transition: all 0.15s; }
+.variant-card:hover { border-color: var(--gray-300); }
 .variant-card.selected { border-color: var(--red-400); border-width: 1.5px; background: var(--red-50); }
 .variant-num { font-size: 10px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 5px; }
 .variant-angle { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 400; color: var(--text); margin-bottom: 6px; }
 .variant-hook { font-size: 13px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 8px; }
 .variant-sub { font-size: 11px; color: var(--text-muted); padding-top: 8px; border-top: 1px solid var(--border); }
-
-/* ── RIGHT PANEL ── */
-.rightpanel {
-  border-left: 1px solid var(--border);
-  background: var(--bg-sidebar);
-  overflow-y: auto;
-  display: flex; flex-direction: column;
-}
-.rp-block { padding: 18px; border-bottom: 1px solid var(--border); }
-.rp-title { font-size: 10px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px; }
-
-/* Timer */
+.rightpanel { border-left: 1px solid var(--border); background: var(--bg-sidebar); overflow-y: auto; }
+.rp-block { padding: 16px; border-bottom: 1px solid var(--border); }
+.rp-title { font-size: 10px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
 .timer-num { font-family: 'Sora', sans-serif; font-size: 36px; font-weight: 300; letter-spacing: -2px; color: var(--text); font-variant-numeric: tabular-nums; }
-.timer-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; margin-bottom: 12px; }
+.timer-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; margin-bottom: 10px; }
 .timer-btns { display: flex; gap: 8px; }
-.t-btn {
-  font-family: 'Inter', sans-serif;
-  font-size: 12px; font-weight: 600;
-  padding: 7px 16px;
-  border: 1px solid var(--border);
-  border-radius: 100px;
-  cursor: pointer;
-  background: transparent;
-  color: var(--text-secondary);
-  transition: all 0.12s;
-}
-.t-btn:hover { border-color: var(--gray-400); }
+.t-btn { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; padding: 7px 16px; border: 1px solid var(--border); border-radius: 100px; cursor: pointer; background: transparent; color: var(--text-secondary); transition: all 0.12s; }
 .t-btn.primary { background: var(--red-500); color: white; border-color: var(--red-500); }
-.t-btn.primary:hover { background: var(--red-700); border-color: var(--red-700); }
-
-/* Formula */
-.formula { background: var(--gray-50); border-radius: 12px; padding: 12px 14px; font-size: 12px; color: var(--text-muted); line-height: 1.8; border: 1px solid var(--border); }
+.t-btn.primary:hover { background: var(--red-700); }
+.formula { background: var(--gray-50); border-radius: 12px; padding: 10px 14px; font-size: 12px; color: var(--text-muted); line-height: 1.8; border: 1px solid var(--border); }
 .fv { color: var(--red-500); font-weight: 700; }
-
-/* Metrics */
 .m-row { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; }
 .m-name { font-size: 12px; color: var(--text-muted); }
 .m-val { font-size: 13px; font-weight: 600; color: var(--text); }
 .m-bar { height: 2px; background: var(--border); border-radius: 2px; margin: 4px 0 12px; }
-.m-fill { height: 2px; border-radius: 2px; background: var(--red-400); transition: width 0.6s ease; }
-
-/* Tools */
+.m-fill { height: 2px; border-radius: 2px; background: var(--red-400); transition: width 0.6s; }
 .tool-row { display: flex; align-items: center; justify-content: space-between; padding: 5px 0; }
-.tool-name { font-size: 12px; color: var(--text-secondary); }
+.tool-name { font-size: 12px; }
 .tool-badge { font-size: 10px; padding: 3px 9px; border-radius: 100px; font-weight: 600; }
 .on { background: var(--green-100); color: #15803d; }
 .off { background: var(--gray-100); color: var(--text-muted); }
 
-/* Flow steps */
-.step-row { display: flex; align-items: center; gap: 10px; padding: 6px 0; }
-.step-circle {
-  width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 10px; font-weight: 700;
-  border: 1.5px solid var(--border);
-  color: var(--text-muted);
-  transition: all 0.3s;
-}
-.step-circle.done { background: var(--red-500); border-color: var(--red-500); color: white; }
-.step-circle.active { border-color: var(--red-400); color: var(--red-400); }
-.step-text { font-size: 12px; color: var(--text-muted); transition: color 0.3s; }
-.step-text.active { color: var(--text); font-weight: 500; }
-
-/* Animations */
+/* ── FLOW MODE ── */
+.flow-canvas { flex: 1; overflow: auto; padding: 20px; position: relative; background: var(--bg-page); }
+.flow-wrapper { display: flex; flex-direction: column; gap: 12px; min-width: 600px; }
+.flow-node { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-card); transition: border-color 0.2s; }
+.flow-node.active-node { border-color: var(--red-400); }
+.flow-node.done-node { border-color: var(--green-500); }
+.flow-node.error-node { border-color: var(--red-700); }
+.fn-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+.fn-left { display: flex; align-items: center; gap: 10px; }
+.fn-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.fn-title { font-size: 13px; font-weight: 600; color: var(--text); }
+.fn-sub { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+.fn-status { font-size: 10px; font-weight: 600; padding: 4px 10px; border-radius: 100px; }
+.st-idle { background: var(--gray-100); color: var(--text-muted); }
+.st-running { background: #FFF7ED; color: #C2410C; }
+.st-done { background: var(--green-100); color: #15803d; }
+.st-error { background: var(--red-50); color: var(--red-700); }
+.fn-body { padding: 14px 16px; }
+.fn-input { width: 100%; font-family: 'Inter', sans-serif; font-size: 13px; border: 1px solid var(--border); border-radius: 10px; padding: 8px 12px; background: var(--input-bg); color: var(--text); outline: none; resize: vertical; line-height: 1.55; transition: border-color 0.15s; }
+.fn-input:focus { border-color: var(--red-400); }
+.fn-select { width: 100%; font-family: 'Inter', sans-serif; font-size: 13px; border: 1px solid var(--border); border-radius: 10px; padding: 8px 12px; background: var(--input-bg); color: var(--text); outline: none; appearance: none; }
+.fn-run-btn { margin-top: 10px; width: 100%; height: 38px; background: var(--red-400); color: white; border: none; border-radius: 10px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.15s; }
+.fn-run-btn:hover { background: var(--red-500); }
+.fn-run-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.fn-output { margin-top: 12px; padding: 10px 12px; background: var(--gray-50); border-radius: 10px; font-size: 12px; color: var(--text-secondary); line-height: 1.6; border: 1px solid var(--border); word-break: break-all; }
+.fn-audio { margin-top: 10px; width: 100%; border-radius: 8px; }
+.fn-video { margin-top: 10px; width: 100%; border-radius: 10px; max-height: 240px; object-fit: cover; }
+.connector { display: flex; justify-content: center; align-items: center; height: 24px; }
+.connector-line { width: 2px; height: 100%; background: var(--border); border-radius: 2px; position: relative; }
+.connector-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red-400); position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+.run-all-btn { width: 100%; height: 48px; background: var(--black); color: var(--white); border: none; border-radius: 18px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity 0.15s; }
+.run-all-btn:hover { opacity: 0.85; }
+.run-all-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+@media (prefers-color-scheme: dark) { .run-all-btn { background: var(--white); color: var(--black); } }
 @keyframes spin { to { transform: rotate(360deg); } }
-.spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.35); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; }
-@keyframes shimmer { 0%,100%{opacity:1} 50%{opacity:0.4} }
-.shimmer { animation: shimmer 1.4s ease-in-out infinite; }
-
+.spinner { width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.shimmer { animation: pulse 1.4s ease-in-out infinite; }
 .hidden { display: none !important; }
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 2px; }
+::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 2px; }
 </style>
 </head>
 <body>
 <div class="app">
-
-  <!-- TOPBAR -->
   <div class="topbar">
     <div class="logo-wrap">
       <div class="logo-symbol">
-        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
           <rect x="2" y="2" width="5" height="12" rx="1" fill="white"/>
           <rect x="9" y="2" width="5" height="5" rx="1" fill="#DB3B2B"/>
           <rect x="9" y="9" width="5" height="5" rx="1" fill="white"/>
@@ -426,193 +175,191 @@ body {
       </div>
       <span class="logo-name">T1<span>zima</span></span>
     </div>
-
     <div class="topbar-center">
-      <div class="sprint-dot" id="sprintDot"></div>
-      <span class="sprint-label" id="sprintLabel">Agente de contenido</span>
+      <div class="nav-tab active" onclick="switchView('content')" id="nav-content">Contenido</div>
+      <div class="nav-tab" onclick="switchView('flow')" id="nav-flow">Flow ⚡</div>
     </div>
-
     <span class="bench-pill" id="benchPill">0 variantes</span>
   </div>
 
   <div class="main">
-
     <!-- SIDEBAR -->
     <div class="sidebar">
       <div class="sb-section">
         <span class="sb-label">Modo</span>
-        <div class="sb-item active" onclick="setMode('full')" id="mode-full">
-          <div class="sb-dot" style="background:#2180FF"></div>
-          <span class="sb-item-text">Flujo completo</span>
-        </div>
-        <div class="sb-item" onclick="setMode('video')" id="mode-video">
-          <div class="sb-dot" style="background:#8B5CF6"></div>
-          <span class="sb-item-text">Video / guión</span>
-        </div>
-        <div class="sb-item" onclick="setMode('audio')" id="mode-audio">
-          <div class="sb-dot" style="background:#EDBD55"></div>
-          <span class="sb-item-text">Audio / ElevenLabs</span>
-        </div>
-        <div class="sb-item" onclick="setMode('copy')" id="mode-copy">
-          <div class="sb-dot" style="background:#4FC153"></div>
-          <span class="sb-item-text">Copy / redes</span>
-        </div>
+        <div class="sb-item active" onclick="setMode('full')" id="mode-full"><div class="sb-dot" style="background:#2180FF"></div><span class="sb-item-text">Flujo completo</span></div>
+        <div class="sb-item" onclick="setMode('video')" id="mode-video"><div class="sb-dot" style="background:#8B5CF6"></div><span class="sb-item-text">Video / guión</span></div>
+        <div class="sb-item" onclick="setMode('audio')" id="mode-audio"><div class="sb-dot" style="background:#EDBD55"></div><span class="sb-item-text">Audio / voz</span></div>
+        <div class="sb-item" onclick="setMode('copy')" id="mode-copy"><div class="sb-dot" style="background:#4FC153"></div><span class="sb-item-text">Copy / redes</span></div>
       </div>
-
       <div class="sb-divider"></div>
-
       <div class="sb-section">
         <span class="sb-label">Producto</span>
-        <div class="sb-item" onclick="setProduct('tienda')" id="prod-tienda">
-          <span class="sb-item-emoji">🛍</span>
-          <span class="sb-item-text">T1tienda</span>
-        </div>
-        <div class="sb-item" onclick="setProduct('pagos')" id="prod-pagos">
-          <span class="sb-item-emoji">💳</span>
-          <span class="sb-item-text">T1pagos</span>
-        </div>
-        <div class="sb-item" onclick="setProduct('envios')" id="prod-envios">
-          <span class="sb-item-emoji">📦</span>
-          <span class="sb-item-text">T1envíos</span>
-        </div>
-        <div class="sb-item" onclick="setProduct('score')" id="prod-score">
-          <span class="sb-item-emoji">🛡</span>
-          <span class="sb-item-text">T1score</span>
-        </div>
-        <div class="sb-item" onclick="setProduct('partners')" id="prod-partners">
-          <span class="sb-item-emoji">🤝</span>
-          <span class="sb-item-text">T1Partners</span>
-        </div>
-        <div class="sb-item" onclick="setProduct('ecosistema')" id="prod-ecosistema">
-          <span class="sb-item-emoji">🔵</span>
-          <span class="sb-item-text">Ecosistema T1</span>
-        </div>
+        <div class="sb-item" onclick="setProduct('tienda')" id="prod-tienda"><span class="sb-item-emoji">🛍</span><span class="sb-item-text">T1tienda</span></div>
+        <div class="sb-item" onclick="setProduct('pagos')" id="prod-pagos"><span class="sb-item-emoji">💳</span><span class="sb-item-text">T1pagos</span></div>
+        <div class="sb-item" onclick="setProduct('envios')" id="prod-envios"><span class="sb-item-emoji">📦</span><span class="sb-item-text">T1envíos</span></div>
+        <div class="sb-item" onclick="setProduct('score')" id="prod-score"><span class="sb-item-emoji">🛡</span><span class="sb-item-text">T1score</span></div>
+        <div class="sb-item" onclick="setProduct('partners')" id="prod-partners"><span class="sb-item-emoji">🤝</span><span class="sb-item-text">T1Partners</span></div>
+        <div class="sb-item" onclick="setProduct('ecosistema')" id="prod-ecosistema"><span class="sb-item-emoji">🔵</span><span class="sb-item-text">Ecosistema T1</span></div>
       </div>
-
       <div class="sb-divider"></div>
-
       <div class="sb-section">
         <span class="sb-label">Historial</span>
         <div id="histList"><div style="font-size:12px;color:var(--text-muted);padding:4px 8px">Sin sesiones</div></div>
       </div>
     </div>
 
-    <!-- CENTER -->
-    <div class="center">
-      <div class="tabs-bar">
-        <div class="tab active" onclick="setTab('params')" id="tab-params">Parámetros</div>
-        <div class="tab" onclick="setTab('output')" id="tab-output">Output</div>
-        <div class="tab" onclick="setTab('variantes')" id="tab-variantes">Variantes</div>
+    <!-- CENTER: CONTENT VIEW -->
+    <div class="center" id="view-content">
+      <div style="background:var(--bg-card);border-bottom:1px solid var(--border);display:flex;padding:0 24px;">
+        <div class="nav-tab active" onclick="setTab('params')" id="tab-params" style="border-radius:0;border-bottom:2px solid var(--red-500);padding:14px 18px 12px;color:var(--red-500)">Parámetros</div>
+        <div class="nav-tab" onclick="setTab('output')" id="tab-output" style="border-radius:0;padding:14px 18px 12px">Output</div>
+        <div class="nav-tab" onclick="setTab('variantes')" id="tab-variantes" style="border-radius:0;padding:14px 18px 12px">Variantes</div>
       </div>
-
       <div class="content-scroll">
-
-        <!-- PARAMS -->
         <div id="panel-params">
-          <div class="prod-banner" id="prodBanner">
-            <div>
-              <div class="prod-banner-label">Producto seleccionado</div>
-              <div class="prod-banner-name" id="prodName">Elige un producto →</div>
-            </div>
-            <div class="prod-banner-emoji" id="prodEmoji">👈</div>
-          </div>
-
+          <div class="prod-banner"><div><div class="prod-banner-label">Producto seleccionado</div><div class="prod-banner-name" id="prodName">Elige un producto →</div></div><div class="prod-banner-emoji" id="prodEmoji">👈</div></div>
           <div class="card">
             <span class="card-label">Parámetros de contenido</span>
             <div class="param-grid">
-              <div class="pf">
-                <label>AUDIENCIA</label>
-                <select id="audiencia">
-                  <option>PyME / Emprendedor</option>
-                  <option>Operador growth</option>
-                  <option>Enterprise</option>
-                  <option>Partner / Agencia</option>
-                </select>
-              </div>
-              <div class="pf">
-                <label>CANAL</label>
-                <select id="canal">
-                  <option>Instagram Reels</option>
-                  <option>TikTok</option>
-                  <option>LinkedIn</option>
-                  <option>YouTube Shorts</option>
-                  <option>Twitter/X</option>
-                  <option>WhatsApp</option>
-                </select>
-              </div>
-              <div class="pf">
-                <label>FORMATO</label>
-                <select id="formato">
-                  <option>Video corto (15-60s)</option>
-                  <option>Carrusel educativo</option>
-                  <option>Post texto</option>
-                  <option>Guión narrado</option>
-                  <option>Thread</option>
-                </select>
-              </div>
-              <div class="pf">
-                <label>TONO</label>
-                <select id="tono">
-                  <option>Directo / práctico</option>
-                  <option>Ejecutivo / estratégico</option>
-                  <option>Simple / accesible</option>
-                  <option>Bold / aspiracional</option>
-                </select>
-              </div>
-              <div class="pf full">
-                <label>ÁNGULO / TEMA</label>
-                <textarea id="angulo" placeholder="Ej: por qué vender solo en marketplace te está costando clientes y datos..."></textarea>
-              </div>
+              <div class="pf"><label>AUDIENCIA</label><select id="audiencia"><option>PyME / Emprendedor</option><option>Operador growth</option><option>Enterprise</option><option>Partner / Agencia</option></select></div>
+              <div class="pf"><label>CANAL</label><select id="canal"><option>Instagram Reels</option><option>TikTok</option><option>LinkedIn</option><option>YouTube Shorts</option><option>Twitter/X</option><option>WhatsApp</option></select></div>
+              <div class="pf"><label>FORMATO</label><select id="formato"><option>Video corto (15-60s)</option><option>Carrusel educativo</option><option>Post texto</option><option>Guión narrado</option><option>Thread</option></select></div>
+              <div class="pf"><label>TONO</label><select id="tono"><option>Directo / práctico</option><option>Ejecutivo / estratégico</option><option>Simple / accesible</option><option>Bold / aspiracional</option></select></div>
+              <div class="pf full"><label>ÁNGULO / TEMA</label><textarea id="angulo" placeholder="Ej: por qué vender en marketplace sin tienda propia te está costando clientes..."></textarea></div>
             </div>
           </div>
-
           <div class="card">
             <span class="card-label">Multiplicador forzado</span>
-            <div class="mult-row">
-              <input type="range" min="1" max="10" value="3" step="1" id="multiplier" oninput="updateFormula()">
-              <div class="mult-num" id="multVal">3</div>
-            </div>
-            <div class="mult-hint">Variantes simultáneas — ángulos distintos, no paráfrasis. La presión produce claridad.</div>
+            <div class="mult-row"><input type="range" min="1" max="10" value="3" step="1" id="multiplier" oninput="updateFormula()"><div class="mult-num" id="multVal">3</div></div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:6px">Variantes simultáneas — ángulos distintos, no paráfrasis</div>
           </div>
-
-          <button class="cta-btn" id="genBtn" onclick="generate()">
-            <span id="genTxt">Generar contenido</span>
-            <div class="spinner hidden" id="genSpin"></div>
-          </button>
+          <button class="cta-btn" id="genBtn" onclick="generate()"><span id="genTxt">Generar contenido</span><div class="spinner hidden" id="genSpin"></div></button>
         </div>
-
-        <!-- OUTPUT -->
         <div id="panel-output" class="hidden">
           <div class="card">
-            <div class="out-header">
-              <span class="out-label" id="outLabel">Output</span>
-              <div class="out-actions">
-                <button class="out-btn" onclick="copyOut()">Copiar</button>
-                <button class="out-btn" onclick="setTab('variantes')">Ver variantes</button>
-                <button class="out-btn" onclick="setTab('params')">Editar</button>
-              </div>
-            </div>
+            <div class="out-header"><span class="out-label" id="outLabel">Output</span><div class="out-actions"><button class="out-btn" onclick="copyOut()">Copiar</button><button class="out-btn" onclick="setTab('variantes')">Variantes</button><button class="out-btn" onclick="setTab('params')">Editar</button></div></div>
             <div id="outSections"></div>
           </div>
         </div>
-
-        <!-- VARIANTES -->
         <div id="panel-variantes" class="hidden">
           <div class="card">
-            <div class="out-header">
-              <span class="out-label">Variantes</span>
-              <span style="font-size:12px;color:var(--text-muted)" id="varCount">0 variantes</span>
-            </div>
+            <div class="out-header"><span class="out-label">Variantes</span><span style="font-size:12px;color:var(--text-muted)" id="varCount">0</span></div>
             <div id="varGrid"></div>
           </div>
         </div>
+      </div>
+    </div>
 
+    <!-- CENTER: FLOW VIEW -->
+    <div class="center hidden" id="view-flow">
+      <div style="background:var(--bg-card);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div style="font-family:'Sora',sans-serif;font-size:15px;font-weight:400;color:var(--text)">Pipeline de producción</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:2px">ElevenLabs · Runway — conectado en tiempo real</div>
+        </div>
+        <button class="run-all-btn" style="width:auto;padding:0 20px;height:38px;font-size:13px" id="runAllBtn" onclick="runAll()">
+          <span id="runAllTxt">Correr todo el flow</span>
+          <div class="spinner hidden" id="runAllSpin"></div>
+        </button>
+      </div>
+      <div class="flow-canvas">
+        <div class="flow-wrapper">
+
+          <!-- NODE 1: GUION -->
+          <div class="flow-node active-node" id="node-script">
+            <div class="fn-header">
+              <div class="fn-left">
+                <div class="fn-icon" style="background:#FEF4F4">✍️</div>
+                <div><div class="fn-title">Guión / Copy</div><div class="fn-sub">Claude API — genera el texto base</div></div>
+              </div>
+              <span class="fn-status st-idle" id="st-script">En espera</span>
+            </div>
+            <div class="fn-body">
+              <textarea class="fn-input" id="script-prompt" rows="3" placeholder="Describe el video que quieres crear...">Video de 45s para Instagram Reels de T1tienda: por qué vender en marketplace sin tienda propia te está costando clientes, datos y marca. Tono directo, audiencia PyME México.</textarea>
+              <button class="fn-run-btn" id="btn-script" onclick="runScript()">Generar guión</button>
+              <div class="fn-output hidden" id="out-script"></div>
+            </div>
+          </div>
+
+          <div class="connector"><div class="connector-line"><div class="connector-dot"></div></div></div>
+
+          <!-- NODE 2: VOZ ELEVENLABS -->
+          <div class="flow-node" id="node-voice">
+            <div class="fn-header">
+              <div class="fn-left">
+                <div class="fn-icon" style="background:#FFF7ED">🎙</div>
+                <div><div class="fn-title">Voz — ElevenLabs</div><div class="fn-sub">Text to speech · voz latina profesional</div></div>
+              </div>
+              <span class="fn-status st-idle" id="st-voice">En espera</span>
+            </div>
+            <div class="fn-body">
+              <div style="margin-bottom:8px">
+                <label style="font-size:11px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:4px">VOZ</label>
+                <select class="fn-select" id="voice-id">
+                  <option value="EXAVITQu4vr4xnSDxMaL">Sarah — profesional, clara</option>
+                  <option value="21m00Tcm4TlvDq8ikWAM">Rachel — cálida, natural</option>
+                  <option value="AZnzlk1XvdvUeBnXmlld">Domi — energética</option>
+                  <option value="MF3mGyEYCl7XYWbV9V6O">Elli — joven, dinámica</option>
+                  <option value="TxGEqnHWrfWFTfGW9XjX">Josh — masculina, confiable</option>
+                </select>
+              </div>
+              <textarea class="fn-input" id="voice-text" rows="4" placeholder="El texto de voz aparecerá aquí después de generar el guión..."></textarea>
+              <button class="fn-run-btn" id="btn-voice" onclick="runVoice()">Generar voz</button>
+              <audio class="fn-audio hidden" id="out-voice" controls></audio>
+              <div class="fn-output hidden" id="out-voice-url"></div>
+            </div>
+          </div>
+
+          <div class="connector"><div class="connector-line"><div class="connector-dot"></div></div></div>
+
+          <!-- NODE 3: VIDEO RUNWAY -->
+          <div class="flow-node" id="node-video">
+            <div class="fn-header">
+              <div class="fn-left">
+                <div class="fn-icon" style="background:#EDE9FE">🎬</div>
+                <div><div class="fn-title">Video — Runway</div><div class="fn-sub">Text to video · Gen4 Turbo · 9:16</div></div>
+              </div>
+              <span class="fn-status st-idle" id="st-video">En espera</span>
+            </div>
+            <div class="fn-body">
+              <div style="margin-bottom:8px">
+                <label style="font-size:11px;font-weight:600;color:var(--text-muted);display:block;margin-bottom:4px">DURACIÓN</label>
+                <select class="fn-select" id="video-duration">
+                  <option value="5">5 segundos</option>
+                  <option value="10" selected>10 segundos</option>
+                </select>
+              </div>
+              <textarea class="fn-input" id="video-prompt" rows="3" placeholder="El prompt visual aparecerá aquí después de generar el guión..."></textarea>
+              <button class="fn-run-btn" id="btn-video" onclick="runVideo()">Generar video</button>
+              <div class="fn-output hidden" id="out-video-status"></div>
+              <video class="fn-video hidden" id="out-video" controls></video>
+            </div>
+          </div>
+
+          <div class="connector"><div class="connector-line"><div class="connector-dot"></div></div></div>
+
+          <!-- NODE 4: RESUMEN -->
+          <div class="flow-node" id="node-export">
+            <div class="fn-header">
+              <div class="fn-left">
+                <div class="fn-icon" style="background:var(--green-100)">📦</div>
+                <div><div class="fn-title">Exportar assets</div><div class="fn-sub">Guión · Audio · Video · Caption</div></div>
+              </div>
+              <span class="fn-status st-idle" id="st-export">En espera</span>
+            </div>
+            <div class="fn-body">
+              <div class="fn-output" id="out-export" style="display:block">Corre el flow primero para ver los assets aquí.</div>
+              <div id="export-actions" class="hidden" style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"></div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
 
     <!-- RIGHT PANEL -->
     <div class="rightpanel">
-
       <div class="rp-block">
         <div class="rp-title">Sprint Timer</div>
         <div class="timer-num" id="timerNum">25:00</div>
@@ -622,268 +369,308 @@ body {
           <button class="t-btn" onclick="resetTimer()">Reset</button>
         </div>
       </div>
-
       <div class="rp-block">
         <div class="rp-title">Fórmula de impacto</div>
-        <div class="formula">
-          1 idea × <span class="fv" id="fMult">3</span> variantes<br>
-          = <span class="fv" id="fTotal">3</span> piezas / sprint<br>
-          <span style="color:var(--text-muted)">Tasa objetivo: 1/<span id="fDen">3</span> → producción</span>
-        </div>
+        <div class="formula">1 idea × <span class="fv" id="fMult">3</span> variantes = <span class="fv" id="fTotal">3</span> piezas/sprint<br><span style="color:var(--text-muted)">Tasa: 1/<span id="fDen">3</span> → producción</span></div>
       </div>
-
       <div class="rp-block">
         <div class="rp-title">Benchmarks</div>
         <div class="m-row"><span class="m-name">Piezas generadas</span><span class="m-val" id="mP">0</span></div>
         <div class="m-bar"><div class="m-fill" id="bP" style="width:0%"></div></div>
         <div class="m-row"><span class="m-name">Variantes totales</span><span class="m-val" id="mV">0</span></div>
         <div class="m-bar"><div class="m-fill" id="bV" style="width:0%"></div></div>
-        <div class="m-row"><span class="m-name">Sprint activo</span><span class="m-val" id="mT">0 min</span></div>
+        <div class="m-row"><span class="m-name">Sprint</span><span class="m-val" id="mT">0 min</span></div>
         <div class="m-bar"><div class="m-fill" id="bT" style="width:0%"></div></div>
       </div>
-
       <div class="rp-block">
-        <div class="rp-title">Flujo de producción</div>
-        <div class="step-row"><div class="step-circle done" id="sc1">1</div><span class="step-text active" id="st1">Parámetros</span></div>
-        <div class="step-row"><div class="step-circle" id="sc2">2</div><span class="step-text" id="st2">Guión + copy</span></div>
-        <div class="step-row"><div class="step-circle" id="sc3">3</div><span class="step-text" id="st3">Prompt visual</span></div>
-        <div class="step-row"><div class="step-circle" id="sc4">4</div><span class="step-text" id="st4">Audio ElevenLabs</span></div>
-        <div class="step-row"><div class="step-circle" id="sc5">5</div><span class="step-text" id="st5">Publicación</span></div>
+        <div class="rp-title">APIs conectadas</div>
+        <div class="tool-row"><span class="tool-name">Claude API</span><span class="tool-badge on">Live</span></div>
+        <div class="tool-row"><span class="tool-name">ElevenLabs</span><span class="tool-badge on">Live</span></div>
+        <div class="tool-row"><span class="tool-name">Runway Gen4</span><span class="tool-badge on">Live</span></div>
+        <div class="tool-row"><span class="tool-name">Higgsfield</span><span class="tool-badge off">Pronto</span></div>
+        <div class="tool-row"><span class="tool-name">Krea</span><span class="tool-badge off">Pronto</span></div>
       </div>
-
       <div class="rp-block">
-        <div class="rp-title">Stack activo</div>
-        <div class="tool-row"><span class="tool-name">ElevenLabs</span><span class="tool-badge on">Activo</span></div>
-        <div class="tool-row"><span class="tool-name">Runway</span><span class="tool-badge on">Activo</span></div>
-        <div class="tool-row"><span class="tool-name">Higgsfield</span><span class="tool-badge on">Activo</span></div>
-        <div class="tool-row"><span class="tool-name">Krea</span><span class="tool-badge on">Activo</span></div>
-        <div class="tool-row"><span class="tool-name">Claude / ChatGPT</span><span class="tool-badge on">Activo</span></div>
-        <div class="tool-row"><span class="tool-name">Cavalry</span><span class="tool-badge off">Pronto</span></div>
-        <div class="tool-row"><span class="tool-name">TouchDesigner</span><span class="tool-badge off">Pronto</span></div>
+        <div class="rp-title">Historial</div>
+        <div id="rpHist"><div style="font-size:12px;color:var(--text-muted)">Sin sesiones</div></div>
       </div>
-
     </div>
   </div>
 </div>
 
 <script>
+const ELEVEN_KEY = '37fd5dee955944df19ce41c847a301a215d090789e1988db65dd21c7f18b92dc';
+const RUNWAY_KEY = 'key_dff1cfeb92a8275b79e77b3424466820c3733b4ab2925d0012d07c20e98f0690dad4100f0c95219193d4f1145a3b5b51a53bd756f2fb352d8854ba2780eaa3c6';
+
 const PRODUCTS = {
-  tienda:     { name:'T1tienda',      emoji:'🛍',  ctx:'T1tienda: tienda online + operación multicanal centralizada. Dolores: inventario fragmentado, overselling, sin control de marca, sin datos propios del cliente. Métricas: conversión, GMV por canal, % ventas canal propio vs marketplace.' },
-  pagos:      { name:'T1pagos',       emoji:'💳',  ctx:'T1pagos: cobros tipo Stripe — API, links de pago, suscripciones, MSI, SPEI+tarjetas, liquidación T+1. Dolores: rechazos de pago, cashflow lento, sin MSI, querer vender por WhatsApp sin ecommerce.' },
-  envios:     { name:'T1envíos',      emoji:'📦',  ctx:'T1envíos: cotiza guías multi-paquetería, control de calidad (incidencias/sobrepesos), tracking centralizado. Dolores: operación manual, sin visibilidad, sobrepesos que comen margen, incidencias sin trazabilidad.' },
-  score:      { name:'T1score',       emoji:'🛡',  ctx:'T1score: scoring/decisiones de riesgo en tiempo real. Reduce fraude y contracargos sin bloquear ventas legítimas. Dolores: fraude manual, falsos positivos que matan conversión, pérdidas silenciosas.' },
-  partners:   { name:'T1Partners',    emoji:'🤝',  ctx:'T1Partners: programa para agencias, consultores, resellers. Monetiza recomendando T1 con comisiones recurrentes, sin ser developer. Audiencia: partners que buscan ingresos adicionales activando clientes.' },
-  ecosistema: { name:'T1 Ecosistema', emoji:'🔵',  ctx:'T1 ecosistema AI-first: T1tienda + T1pagos + T1envíos + T1score. Valor = integración end-to-end, menos fragmentación, operación medible y escalable desde México.' }
+  tienda:     { name:'T1tienda',      emoji:'🛍',  ctx:'T1tienda: tienda online + operación multicanal centralizada. Dolores: inventario fragmentado, overselling, sin control de marca, sin datos propios. Métricas: conversión, GMV por canal, % ventas canal propio.' },
+  pagos:      { name:'T1pagos',       emoji:'💳',  ctx:'T1pagos: cobros tipo Stripe — API, links, suscripciones, MSI, SPEI+tarjetas, T+1. Dolores: rechazos de pago, cashflow lento, sin MSI.' },
+  envios:     { name:'T1envíos',      emoji:'📦',  ctx:'T1envíos: guías multi-paquetería, control de calidad, tracking centralizado. Dolores: operación manual, sobrepesos que comen margen, sin visibilidad.' },
+  score:      { name:'T1score',       emoji:'🛡',  ctx:'T1score: scoring de riesgo en tiempo real. Reduce fraude sin bloquear ventas legítimas.' },
+  partners:   { name:'T1Partners',    emoji:'🤝',  ctx:'T1Partners: comisiones recurrentes recomendando T1, sin ser developer.' },
+  ecosistema: { name:'T1 Ecosistema', emoji:'🔵',  ctx:'T1 AI-first: tienda + pagos + envíos + score. Valor = integración end-to-end.' }
 };
+const ANGLES = { tienda:'Por qué vender solo en marketplace te está costando clientes, datos y marca propia', pagos:'Cómo la liquidación lenta está ahorcando tu cashflow', envios:'Los sobrepesos no detectados que comen tu margen', score:'Cómo detener el fraude sin rechazar ventas legítimas', partners:'Gana comisiones recurrentes vendiendo tecnología sin ser developer', ecosistema:'El stack fragmentado que frena cada comercio en México' };
+const BRAND = 'Brand T1: beneficio primero, descripción después. Sharp, práctico, sin hype. NUNCA empieces con el nombre del producto.';
 
-const ANGLES = {
-  tienda:'Por qué vender solo en marketplace te está costando clientes, datos y marca propia',
-  pagos:'Cómo la liquidación lenta está ahorcando tu cashflow sin que lo notes',
-  envios:'Los sobrepesos no detectados que están comiendo tu margen cada semana',
-  score:'Cómo detener el fraude sin rechazar ventas legítimas',
-  partners:'Cómo ganar comisiones recurrentes vendiendo tecnología de comercio sin ser developer',
-  ecosistema:'El stack fragmentado que frena a cada comercio en México'
-};
-
-const BRAND = 'Brand T1: Sharp, práctico, sin hype. Beneficio PRIMERO, descripción después — estilo Apple. NUNCA empezar con el nombre del producto. Siempre: dolor o beneficio → solución → outcome medible. Tono: directo, operacional, ambicioso pero creíble.';
-
-let curMode='full', curProd=null, variants=[];
-let sPiezas=0, sVars=0;
+let curMode='full', curProd=null, variants=[], sPiezas=0, sVars=0;
 let timerOn=false, timerSec=1500, timerIv=null, sprintMin=0;
-let curVariantText = '';
+let curVariantText='', scriptResult={script:'',voiceText:'',visualPrompt:'',caption:''};
+let voiceUrl='', videoUrl='';
 
-function setMode(m) {
-  curMode=m;
-  document.querySelectorAll('[id^="mode-"]').forEach(el=>el.classList.remove('active'));
-  document.getElementById('mode-'+m).classList.add('active');
+function switchView(v) {
+  document.getElementById('view-content').classList.toggle('hidden', v!=='content');
+  document.getElementById('view-flow').classList.toggle('hidden', v!=='flow');
+  document.getElementById('nav-content').classList.toggle('active', v==='content');
+  document.getElementById('nav-flow').classList.toggle('active', v==='flow');
 }
+
+function setMode(m) { curMode=m; document.querySelectorAll('[id^="mode-"]').forEach(el=>el.classList.remove('active')); document.getElementById('mode-'+m).classList.add('active'); }
 
 function setProduct(p) {
   curProd=p;
   document.querySelectorAll('[id^="prod-"]').forEach(el=>el.classList.remove('active'));
   document.getElementById('prod-'+p).classList.add('active');
-  const prod=PRODUCTS[p];
-  document.getElementById('prodName').textContent=prod.name;
-  document.getElementById('prodEmoji').textContent=prod.emoji;
+  document.getElementById('prodName').textContent=PRODUCTS[p].name;
+  document.getElementById('prodEmoji').textContent=PRODUCTS[p].emoji;
   const el=document.getElementById('angulo');
   if(!el.dataset.edited) el.value=ANGLES[p]||'';
 }
 
 function setTab(t) {
-  ['params','output','variantes'].forEach(x=>{
-    document.getElementById('panel-'+x).classList.add('hidden');
-    document.getElementById('tab-'+x).classList.remove('active');
-  });
+  ['params','output','variantes'].forEach(x=>{ document.getElementById('panel-'+x).classList.add('hidden'); document.getElementById('tab-'+x).classList.remove('active'); document.getElementById('tab-'+x).style.borderBottom='2px solid transparent'; document.getElementById('tab-'+x).style.color='var(--text-muted)'; });
   document.getElementById('panel-'+t).classList.remove('hidden');
   document.getElementById('tab-'+t).classList.add('active');
+  document.getElementById('tab-'+t).style.borderBottom='2px solid var(--red-500)';
+  document.getElementById('tab-'+t).style.color='var(--red-500)';
 }
 
-function updateFormula() {
-  const v=document.getElementById('multiplier').value;
-  document.getElementById('multVal').textContent=v;
-  document.getElementById('fMult').textContent=v;
-  document.getElementById('fTotal').textContent=v;
-  document.getElementById('fDen').textContent=v;
+function updateFormula() { const v=document.getElementById('multiplier').value; ['multVal','fMult','fTotal','fDen'].forEach(id=>document.getElementById(id).textContent=v); }
+
+function setNodeStatus(node, status, label) {
+  const el = document.getElementById('st-'+node);
+  const classes = {idle:'st-idle',running:'st-running',done:'st-done',error:'st-error'};
+  const labels = {idle:'En espera',running:'Procesando...',done:'Completado',error:'Error'};
+  el.className = 'fn-status ' + classes[status];
+  el.textContent = label || labels[status];
+  const nodeEl = document.getElementById('node-'+node);
+  nodeEl.className = 'flow-node' + (status==='done'?' done-node':status==='error'?' error-node':status==='running'?' active-node':'');
 }
 
-function setSteps(active) {
-  for(let i=1;i<=5;i++){
-    const c=document.getElementById('sc'+i);
-    const t=document.getElementById('st'+i);
-    if(i<active){c.classList.add('done');c.classList.remove('active');t.classList.add('active');}
-    else if(i===active){c.classList.remove('done');c.classList.add('active');t.classList.add('active');}
-    else{c.classList.remove('done','active');t.classList.remove('active');}
+async function runScript() {
+  const prompt = document.getElementById('script-prompt').value;
+  if(!prompt) { alert('Escribe una descripción del video'); return; }
+  setNodeStatus('script','running');
+  document.getElementById('btn-script').disabled=true;
+  document.getElementById('out-script').classList.add('hidden');
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:1000,
+        system: `Eres T1zima, agente de contenido de T1. ${BRAND}\nContexto: ${curProd ? PRODUCTS[curProd].ctx : 'T1 ecosistema AI-first para comercio en México.'}\nResponde SOLO JSON sin markdown.`,
+        messages:[{role:'user',content:`Genera el paquete completo para: ${prompt}\n\nJSON exacto:\n{"script":"guion completo listo para leer en voz","voice_text":"texto optimizado para text-to-speech, natural y conversacional","visual_prompt":"cinematic video prompt in english for Runway Gen4, 9:16 vertical, T1 brand orange-red gradient","caption":"caption completo para Instagram con emojis y hashtags"}`}]
+      })
+    });
+    const data = await res.json();
+    const raw = data.content.filter(b=>b.type==='text').map(b=>b.text).join('');
+    scriptResult = JSON.parse(raw.replace(/```json|```/g,'').trim());
+    document.getElementById('out-script').textContent = scriptResult.script;
+    document.getElementById('out-script').classList.remove('hidden');
+    document.getElementById('voice-text').value = scriptResult.voice_text || scriptResult.script;
+    document.getElementById('video-prompt').value = scriptResult.visual_prompt || '';
+    setNodeStatus('script','done');
+    sPiezas++; updateMetrics();
+  } catch(e) {
+    document.getElementById('out-script').textContent = 'Error: '+e.message;
+    document.getElementById('out-script').classList.remove('hidden');
+    setNodeStatus('script','error');
   }
+  document.getElementById('btn-script').disabled=false;
+}
+
+async function runVoice() {
+  const text = document.getElementById('voice-text').value;
+  const voiceId = document.getElementById('voice-id').value;
+  if(!text) { alert('Genera el guión primero'); return; }
+  setNodeStatus('voice','running');
+  document.getElementById('btn-voice').disabled=true;
+
+  try {
+    const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
+      method:'POST',
+      headers:{'xi-api-key':ELEVEN_KEY,'Content-Type':'application/json','Accept':'audio/mpeg'},
+      body: JSON.stringify({ text, model_id:'eleven_multilingual_v2', voice_settings:{stability:0.65,similarity_boost:0.80,style:0.25,use_speaker_boost:true} })
+    });
+    if(!res.ok) throw new Error(`ElevenLabs error: ${res.status}`);
+    const blob = await res.blob();
+    voiceUrl = URL.createObjectURL(blob);
+    const audio = document.getElementById('out-voice');
+    audio.src = voiceUrl;
+    audio.classList.remove('hidden');
+    document.getElementById('out-voice-url').textContent = '✓ Audio generado — reproduce arriba';
+    document.getElementById('out-voice-url').classList.remove('hidden');
+    setNodeStatus('voice','done');
+  } catch(e) {
+    document.getElementById('out-voice-url').textContent = 'Error ElevenLabs: '+e.message;
+    document.getElementById('out-voice-url').classList.remove('hidden');
+    setNodeStatus('voice','error');
+  }
+  document.getElementById('btn-voice').disabled=false;
+}
+
+async function runVideo() {
+  const prompt = document.getElementById('video-prompt').value;
+  const duration = parseInt(document.getElementById('video-duration').value);
+  if(!prompt) { alert('Genera el guión primero para obtener el prompt visual'); return; }
+  setNodeStatus('video','running');
+  document.getElementById('btn-video').disabled=true;
+  document.getElementById('out-video-status').textContent = 'Enviando a Runway Gen4... (puede tomar 1-3 min)';
+  document.getElementById('out-video-status').classList.remove('hidden');
+
+  try {
+    const createRes = await fetch('https://api.dev.runwayml.com/v1/text_to_video', {
+      method:'POST',
+      headers:{'Authorization':'Bearer '+RUNWAY_KEY,'Content-Type':'application/json','X-Runway-Version':'2024-11-06'},
+      body: JSON.stringify({ model:'gen4_turbo', promptText: prompt + ', vertical 9:16 format, cinematic, brand colors orange and red', ratio:'720:1280', duration })
+    });
+    if(!createRes.ok) { const err=await createRes.json(); throw new Error(err.message||createRes.status); }
+    const task = await createRes.json();
+    const taskId = task.id;
+    document.getElementById('out-video-status').textContent = `Task creado: ${taskId} — Polling...`;
+
+    let attempts = 0;
+    const poll = async () => {
+      if(attempts++ > 60) { setNodeStatus('video','error','Timeout'); return; }
+      const pollRes = await fetch(`https://api.dev.runwayml.com/v1/tasks/${taskId}`, {
+        headers:{'Authorization':'Bearer '+RUNWAY_KEY,'X-Runway-Version':'2024-11-06'}
+      });
+      const pollData = await pollRes.json();
+      document.getElementById('out-video-status').textContent = `Estado: ${pollData.status} (${attempts}s)`;
+      if(pollData.status==='SUCCEEDED') {
+        videoUrl = pollData.output?.[0];
+        if(videoUrl) {
+          const vid = document.getElementById('out-video');
+          vid.src = videoUrl;
+          vid.classList.remove('hidden');
+        }
+        setNodeStatus('video','done');
+        renderExport();
+        document.getElementById('btn-video').disabled=false;
+      } else if(pollData.status==='FAILED') {
+        setNodeStatus('video','error');
+        document.getElementById('btn-video').disabled=false;
+      } else {
+        setTimeout(poll, 5000);
+      }
+    };
+    setTimeout(poll, 3000);
+  } catch(e) {
+    document.getElementById('out-video-status').textContent = 'Error Runway: '+e.message;
+    setNodeStatus('video','error');
+    document.getElementById('btn-video').disabled=false;
+  }
+}
+
+function renderExport() {
+  setNodeStatus('export','done');
+  const out = document.getElementById('out-export');
+  out.innerHTML = `<strong>Assets listos:</strong><br><br>📝 Guión: ${scriptResult.script ? '✓' : '—'}<br>🎙 Audio: ${voiceUrl ? '✓ generado' : '—'}<br>🎬 Video: ${videoUrl ? '✓ ' + videoUrl.substring(0,40)+'...' : '—'}<br><br>📱 Caption:<br><em>${scriptResult.caption||'—'}</em>`;
+  const actions = document.getElementById('export-actions');
+  actions.classList.remove('hidden');
+  actions.innerHTML = '';
+  if(scriptResult.caption) {
+    const btn = document.createElement('button');
+    btn.className='out-btn'; btn.textContent='Copiar caption';
+    btn.onclick=()=>{ navigator.clipboard.writeText(scriptResult.caption); btn.textContent='✓ Copiado'; setTimeout(()=>btn.textContent='Copiar caption',1500); };
+    actions.appendChild(btn);
+  }
+  if(scriptResult.script) {
+    const btn2 = document.createElement('button');
+    btn2.className='out-btn'; btn2.textContent='Copiar guión';
+    btn2.onclick=()=>{ navigator.clipboard.writeText(scriptResult.script); btn2.textContent='✓ Copiado'; setTimeout(()=>btn2.textContent='Copiar guión',1500); };
+    actions.appendChild(btn2);
+  }
+}
+
+async function runAll() {
+  document.getElementById('runAllBtn').disabled=true;
+  document.getElementById('runAllTxt').textContent='Corriendo...';
+  document.getElementById('runAllSpin').classList.remove('hidden');
+  await runScript();
+  await new Promise(r=>setTimeout(r,500));
+  await runVoice();
+  await new Promise(r=>setTimeout(r,500));
+  await runVideo();
+  document.getElementById('runAllBtn').disabled=false;
+  document.getElementById('runAllTxt').textContent='Correr todo el flow';
+  document.getElementById('runAllSpin').classList.add('hidden');
 }
 
 async function generate() {
   if(!curProd){alert('Elige un producto T1 primero.');return;}
   const prod=PRODUCTS[curProd];
-  const audiencia=document.getElementById('audiencia').value;
-  const canal=document.getElementById('canal').value;
-  const formato=document.getElementById('formato').value;
-  const tono=document.getElementById('tono').value;
-  const angulo=document.getElementById('angulo').value||'Beneficio principal';
   const mult=parseInt(document.getElementById('multiplier').value);
-
-  const btn=document.getElementById('genBtn');
-  const spin=document.getElementById('genSpin');
-  const txt=document.getElementById('genTxt');
+  const btn=document.getElementById('genBtn'); const spin=document.getElementById('genSpin'); const txt=document.getElementById('genTxt');
   btn.disabled=true; txt.textContent='Generando...'; spin.classList.remove('hidden');
-  setSteps(2);
-
-  document.getElementById('outSections').innerHTML=`<div class="shimmer" style="color:var(--text-muted);font-size:13px;padding:8px 0">Generando ${mult} variantes para ${prod.name}...</div>`;
+  document.getElementById('outSections').innerHTML=`<div class="shimmer" style="color:var(--text-muted);font-size:13px;padding:8px 0">Generando ${mult} variantes...</div>`;
   setTab('output');
-
-  const sys=`Eres T1zima, agente de contenido de T1.\n${BRAND}\n\nContexto:\n${prod.ctx}\n\nREGLAS:\n1. NUNCA empieces con el nombre del producto\n2. Cada variante: ángulo DISTINTO\n3. Gancho: 2 líneas máx, curiosidad inmediata\n4. Contenido listo para publicar en ${canal}\n5. Prompts visuales en inglés, cinematográficos\n6. Prompt audio: tono + pace + emoción\n7. SOLO JSON válido sin markdown`;
-
-  const usr=`Genera ${mult} variantes:\n- Producto: ${prod.name}\n- Canal: ${canal}\n- Formato: ${formato}\n- Audiencia: ${audiencia}\n- Tono: ${tono}\n- Ángulo: ${angulo}\n\n{"variantes":[{"id":1,"angulo":"3-5 palabras","gancho":"hook","contenido":"contenido completo","prompt_visual":"english prompt","prompt_audio":"ElevenLabs instruction","cta":"llamada a la acción"}]}`;
-
-  try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:sys,messages:[{role:'user',content:usr}]})
-    });
+  const sys=`Eres T1zima. ${BRAND}\nProducto: ${prod.ctx}\nSOLO JSON válido sin markdown.`;
+  const usr=`Genera ${mult} variantes para ${prod.name} — canal: ${document.getElementById('canal').value}, formato: ${document.getElementById('formato').value}, audiencia: ${document.getElementById('audiencia').value}, tono: ${document.getElementById('tono').value}, ángulo: ${document.getElementById('angulo').value||'beneficio principal'}.\n{"variantes":[{"id":1,"angulo":"3-5 palabras","gancho":"hook","contenido":"contenido completo","prompt_visual":"english runway prompt","prompt_audio":"ElevenLabs instruction","cta":"CTA"}]}`;
+  try {
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:sys,messages:[{role:'user',content:usr}]})});
     const data=await res.json();
     const raw=data.content.filter(b=>b.type==='text').map(b=>b.text).join('');
     const parsed=JSON.parse(raw.replace(/```json|```/g,'').trim());
     variants=parsed.variantes||[];
-    sPiezas++; sVars+=variants.length;
-    updateMetrics();
-    renderOutput(variants,prod,canal);
-    addHistory(angulo,canal,variants.length,prod.emoji);
-    setSteps(3);
-    setTab('output');
-  }catch(e){
-    document.getElementById('outSections').innerHTML=`<div style="color:var(--red-500);font-size:13px">Error al generar. Intenta de nuevo.<br><small style="color:var(--text-muted)">${e.message}</small></div>`;
-    setTab('output');
-  }
+    sPiezas++; sVars+=variants.length; updateMetrics();
+    renderOutput(); addHistory(document.getElementById('angulo').value,document.getElementById('canal').value,variants.length,prod.emoji);
+    showVariant(0); setTab('output');
+  } catch(e) { document.getElementById('outSections').innerHTML=`<div style="color:var(--red-500)">Error: ${e.message}</div>`; }
   btn.disabled=false; txt.textContent='Generar de nuevo'; spin.classList.add('hidden');
 }
 
-function renderOutput(vars,prod,canal){
-  document.getElementById('varCount').textContent=vars.length+' variantes';
-  document.getElementById('varGrid').innerHTML=vars.map((v,i)=>`
-    <div class="variant-card ${i===0?'selected':''}" onclick="showVariant(${i})">
-      <div class="variant-num">Variante ${i+1}</div>
-      <div class="variant-angle">${v.angulo}</div>
-      <div class="variant-hook">${v.gancho}</div>
-      <div class="variant-sub">Visual: ${(v.prompt_visual||'').substring(0,65)}...</div>
-    </div>`).join('');
-  showVariant(0);
+function renderOutput() {
+  document.getElementById('varCount').textContent=variants.length+' variantes';
+  document.getElementById('varGrid').innerHTML=variants.map((v,i)=>`<div class="variant-card ${i===0?'selected':''}" onclick="showVariant(${i})"><div class="variant-num">Variante ${i+1}</div><div class="variant-angle">${v.angulo}</div><div class="variant-hook">${v.gancho}</div><div class="variant-sub">Visual: ${(v.prompt_visual||'').substring(0,65)}...</div></div>`).join('');
 }
 
-function showVariant(i){
+function showVariant(i) {
   const v=variants[i]; if(!v)return;
   document.querySelectorAll('.variant-card').forEach((c,idx)=>c.classList.toggle('selected',idx===i));
   document.getElementById('outLabel').textContent=`Variante ${i+1} / ${variants.length}`;
-  curVariantText=`ÁNGULO\n${v.angulo}\n\nGANCHO\n${v.gancho}\n\nCONTENIDO\n${v.contenido}\n\nPROMPT VISUAL (Runway / Krea / Higgsfield)\n${v.prompt_visual}\n\nAUDIO (ElevenLabs)\n${v.prompt_audio}\n\nCTA\n${v.cta}`;
+  curVariantText=`ÁNGULO\n${v.angulo}\n\nGANCHO\n${v.gancho}\n\nCONTENIDO\n${v.contenido}\n\nPROMPT VISUAL\n${v.prompt_visual}\n\nAUDIO\n${v.prompt_audio}\n\nCTA\n${v.cta}`;
   document.getElementById('outSections').innerHTML=`
-    <div class="out-section">
-      <div class="out-section-title">Ángulo</div>
-      <div class="out-section-body" style="font-family:'Sora',sans-serif;font-size:16px;font-weight:400">${v.angulo}</div>
-    </div>
-    <div class="out-section">
-      <div class="out-section-title">Gancho</div>
-      <div class="out-section-body" style="font-weight:600;color:var(--text)">${v.gancho}</div>
-    </div>
-    <div class="out-section">
-      <div class="out-section-title">Contenido</div>
-      <div class="out-section-body">${v.contenido}</div>
-    </div>
-    <div class="out-section">
-      <div class="out-section-title">Prompt visual — Runway / Krea / Higgsfield</div>
-      <div class="out-section-body" style="font-style:italic">${v.prompt_visual}</div>
-    </div>
-    <div class="out-section">
-      <div class="out-section-title">Audio — ElevenLabs</div>
-      <div class="out-section-body">${v.prompt_audio}</div>
-    </div>
-    <div class="out-section">
-      <div class="out-section-title">CTA</div>
-      <div class="out-section-body" style="font-weight:600;color:var(--red-500)">${v.cta}</div>
-    </div>`;
+    <div class="out-section"><div class="out-section-title">Ángulo</div><div class="out-section-body" style="font-family:'Sora',sans-serif;font-size:16px">${v.angulo}</div></div>
+    <div class="out-section"><div class="out-section-title">Gancho</div><div class="out-section-body" style="font-weight:600;color:var(--text)">${v.gancho}</div></div>
+    <div class="out-section"><div class="out-section-title">Contenido</div><div class="out-section-body">${v.contenido}</div></div>
+    <div class="out-section"><div class="out-section-title">Prompt visual — Runway</div><div class="out-section-body" style="font-style:italic">${v.prompt_visual}</div></div>
+    <div class="out-section"><div class="out-section-title">Audio — ElevenLabs</div><div class="out-section-body">${v.prompt_audio}</div></div>
+    <div class="out-section"><div class="out-section-title">CTA</div><div class="out-section-body" style="font-weight:600;color:var(--red-500)">${v.cta}</div></div>`;
 }
 
-function copyOut(){
-  navigator.clipboard.writeText(curVariantText);
-  const b=event.target; b.textContent='✓ Copiado'; setTimeout(()=>b.textContent='Copiar',1500);
-}
+function copyOut() { navigator.clipboard.writeText(curVariantText); const b=event.target; b.textContent='✓ Copiado'; setTimeout(()=>b.textContent='Copiar',1500); }
 
-function updateMetrics(){
-  document.getElementById('mP').textContent=sPiezas;
-  document.getElementById('mV').textContent=sVars;
-  document.getElementById('bP').style.width=Math.min(sPiezas*10,100)+'%';
-  document.getElementById('bV').style.width=Math.min(sVars*5,100)+'%';
+function updateMetrics() {
+  document.getElementById('mP').textContent=sPiezas; document.getElementById('mV').textContent=sVars;
+  document.getElementById('bP').style.width=Math.min(sPiezas*10,100)+'%'; document.getElementById('bV').style.width=Math.min(sVars*5,100)+'%';
   document.getElementById('benchPill').textContent=sVars+' variantes';
 }
 
-function addHistory(angulo,canal,count,emoji){
+function addHistory(angulo,canal,count,emoji) {
   const now=new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'});
   const html=`<div class="h-item"><div class="h-meta">${now} · ${emoji} · ${canal} · ${count} var.</div><div class="h-text">${angulo}</div></div>`;
-  const el=document.getElementById('histList');
-  if(el.querySelector('div[style]'))el.innerHTML='';
-  el.innerHTML=html+el.innerHTML;
+  ['histList','rpHist'].forEach(id=>{ const el=document.getElementById(id); if(el.querySelector('div[style]'))el.innerHTML=''; el.innerHTML=html+el.innerHTML; });
 }
 
-function toggleTimer(){
-  if(timerOn){
-    clearInterval(timerIv); timerOn=false;
-    document.getElementById('timerBtn').textContent='Continuar';
-    document.getElementById('timerSub').textContent='Pausado';
-    document.getElementById('sprintDot').style.background='var(--yellow-500)';
-  }else{
-    timerOn=true;
-    document.getElementById('timerBtn').textContent='Pausar';
-    document.getElementById('timerSub').textContent='Sprint en progreso...';
-    document.getElementById('sprintDot').style.background='var(--red-500)';
-    timerIv=setInterval(()=>{
-      timerSec--;
-      sprintMin=Math.floor((1500-timerSec)/60);
-      document.getElementById('mT').textContent=sprintMin+' min';
-      document.getElementById('bT').style.width=Math.min((sprintMin/25)*100,100)+'%';
-      if(timerSec<=0){
-        clearInterval(timerIv);timerOn=false;
-        document.getElementById('timerBtn').textContent='Iniciar';
-        document.getElementById('timerSub').textContent='¡Sprint completado!';
-        document.getElementById('sprintDot').style.background='var(--green-500)';
-        timerSec=0;
-      }
-      const m=Math.floor(timerSec/60),s=timerSec%60;
-      document.getElementById('timerNum').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-    },1000);
-  }
+function toggleTimer() {
+  if(timerOn){clearInterval(timerIv);timerOn=false;document.getElementById('timerBtn').textContent='Continuar';document.getElementById('timerSub').textContent='Pausado';}
+  else{timerOn=true;document.getElementById('timerBtn').textContent='Pausar';document.getElementById('timerSub').textContent='Sprint en progreso...';
+    timerIv=setInterval(()=>{timerSec--;sprintMin=Math.floor((1500-timerSec)/60);document.getElementById('mT').textContent=sprintMin+' min';document.getElementById('bT').style.width=Math.min((sprintMin/25)*100,100)+'%';
+      if(timerSec<=0){clearInterval(timerIv);timerOn=false;document.getElementById('timerBtn').textContent='Iniciar';document.getElementById('timerSub').textContent='¡Sprint completado!';timerSec=0;}
+      const m=Math.floor(timerSec/60),s=timerSec%60;document.getElementById('timerNum').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;},1000);}
 }
-
-function resetTimer(){
-  clearInterval(timerIv);timerOn=false;timerSec=1500;
-  document.getElementById('timerNum').textContent='25:00';
-  document.getElementById('timerBtn').textContent='Iniciar';
-  document.getElementById('timerSub').textContent='Jake Knapp — máximo foco';
-  document.getElementById('sprintDot').style.background='var(--green-500)';
-}
-
+function resetTimer(){clearInterval(timerIv);timerOn=false;timerSec=1500;document.getElementById('timerNum').textContent='25:00';document.getElementById('timerBtn').textContent='Iniciar';document.getElementById('timerSub').textContent='Jake Knapp — máximo foco';}
 document.getElementById('angulo').addEventListener('input',function(){this.dataset.edited='1';});
 </script>
 </body>
