@@ -4,208 +4,524 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>T1zima — Agente de Contenido</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* T1 Brand Colors */
+  --red-400: #E26153;
+  --red-500: #DB3B2B;
+  --red-700: #CC0000;
+  --red-50: #FEF4F4;
+  --red-100: #F9D2D2;
+  --red-200: #F1B0A9;
+
+  --gray-50: #F8F8F8;
+  --gray-100: #F3F3F3;
+  --gray-200: #E7E7E7;
+  --gray-300: #DBDBDB;
+  --gray-400: #CFCFCF;
+  --gray-500: #C3C3C3;
+  --gray-600: #9CA3AF;
+
+  --oxford: #4C4C4C;
+  --black: #000000;
+  --white: #FFFFFF;
+
+  --blue-500: #2180FF;
+  --green-500: #4FC153;
+  --green-100: #F0FDF4;
+  --yellow-500: #EDBD55;
+
+  /* Landing shadows */
+  --shadow-card: 0 0 25px 2px rgba(0,0,0,0.06);
+  --shadow-card-hover: 0 20px 50px rgba(0,0,0,0.08);
+  --shadow-header: 0 0 25px 2px rgba(0,0,0,0.06);
+
+  /* Light mode */
+  --bg: #ffffff;
+  --bg-page: var(--gray-50);
+  --bg-card: #ffffff;
+  --bg-sidebar: #ffffff;
+  --text: var(--black);
+  --text-secondary: var(--oxford);
+  --text-muted: var(--gray-600);
+  --border: var(--gray-200);
+  --border-strong: var(--gray-300);
+  --input-bg: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
   :root {
-    --bg-primary: #ffffff;
-    --bg-secondary: #f5f5f7;
-    --bg-tertiary: #f0f0f2;
-    --text-primary: #1d1d1f;
-    --text-secondary: #6e6e73;
-    --text-tertiary: #a1a1a6;
-    --border: rgba(0,0,0,0.1);
-    --border-strong: rgba(0,0,0,0.18);
-    --success-bg: #e8f9ee;
-    --success-text: #1a7f37;
-    --radius-md: 8px;
-    --radius-lg: 12px;
+    --bg: #0a0a0a;
+    --bg-page: #111111;
+    --bg-card: #1a1a1a;
+    --bg-sidebar: #111111;
+    --text: #f5f5f5;
+    --text-secondary: #c0c0c0;
+    --text-muted: #707070;
+    --border: #2a2a2a;
+    --border-strong: #3a3a3a;
+    --input-bg: #1a1a1a;
+    --gray-50: #1a1a1a;
+    --gray-100: #222222;
+    --gray-200: #2a2a2a;
+    --red-50: #1f0a0a;
+    --red-100: #2a1010;
   }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg-primary: #1c1c1e;
-      --bg-secondary: #2c2c2e;
-      --bg-tertiary: #111111;
-      --text-primary: #f5f5f7;
-      --text-secondary: #a1a1a6;
-      --text-tertiary: #636366;
-      --border: rgba(255,255,255,0.1);
-      --border-strong: rgba(255,255,255,0.18);
-      --success-bg: #0d2e1a;
-      --success-text: #3dd68c;
-    }
-  }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif; background: var(--bg-tertiary); color: var(--text-primary); min-height: 100vh; }
-  .app { display: grid; grid-template-rows: 56px 1fr; height: 100vh; overflow: hidden; }
-  /* Topbar */
-  .topbar { background: var(--bg-primary); border-bottom: 0.5px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; }
-  .logo { font-size: 17px; font-weight: 500; letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px; }
-  .logo-badge { background: var(--text-primary); color: var(--bg-primary); font-size: 10px; font-weight: 500; padding: 2px 7px; border-radius: 4px; letter-spacing: 0.5px; }
-  .bench-pill { font-size: 12px; padding: 4px 12px; border-radius: 20px; background: var(--success-bg); color: var(--success-text); font-weight: 500; }
-  /* Layout */
-  .main { display: grid; grid-template-columns: 220px 1fr 290px; height: calc(100vh - 56px); overflow: hidden; }
-  /* Sidebar */
-  .sidebar { border-right: 0.5px solid var(--border); background: var(--bg-primary); padding: 16px 0; overflow-y: auto; }
-  .sidebar-section { padding: 6px 16px; }
-  .sidebar-label { font-size: 10px; font-weight: 500; color: var(--text-tertiary); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 8px; }
-  .sidebar-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: var(--radius-md); cursor: pointer; margin-bottom: 2px; transition: background 0.12s; }
-  .sidebar-item:hover { background: var(--bg-secondary); }
-  .sidebar-item.active { background: var(--bg-secondary); border: 0.5px solid var(--border-strong); }
-  .sidebar-item span { font-size: 13px; color: var(--text-primary); }
-  .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-  .dot-full { background: #3B82F6; } .dot-video { background: #8B5CF6; } .dot-audio { background: #F59E0B; } .dot-copy { background: #10B981; }
-  .sidebar-divider { height: 0.5px; background: var(--border); margin: 10px 16px; }
-  /* Center */
-  .center { display: flex; flex-direction: column; overflow: hidden; background: var(--bg-tertiary); }
-  .center-header { background: var(--bg-primary); border-bottom: 0.5px solid var(--border); padding: 0 24px; display: flex; align-items: flex-end; }
-  .mode-tab { font-size: 13px; padding: 14px 18px 12px; cursor: pointer; border-bottom: 2px solid transparent; color: var(--text-secondary); transition: all 0.15s; }
-  .mode-tab.active { color: var(--text-primary); border-bottom-color: var(--text-primary); font-weight: 500; }
-  .content-area { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
-  /* Cards */
-  .card { background: var(--bg-primary); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 20px; }
-  .card-title { font-size: 10px; font-weight: 500; color: var(--text-tertiary); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 14px; }
-  .param-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .param-field { display: flex; flex-direction: column; gap: 5px; }
-  .param-field.full { grid-column: 1 / -1; }
-  .param-field label { font-size: 11px; color: var(--text-secondary); font-weight: 500; }
-  .param-field select, .param-field textarea {
-    font-size: 13px; border: 0.5px solid var(--border-strong); border-radius: var(--radius-md);
-    padding: 8px 10px; background: var(--bg-primary); color: var(--text-primary);
-    font-family: inherit; outline: none; transition: border-color 0.15s;
-  }
-  .param-field select:focus, .param-field textarea:focus { border-color: var(--text-primary); }
-  .param-field textarea { resize: vertical; min-height: 72px; line-height: 1.5; }
-  /* Multiplier */
-  .mult-row { display: flex; align-items: center; gap: 14px; }
-  .mult-row input[type=range] { flex: 1; accent-color: var(--text-primary); }
-  .mult-val { font-size: 22px; font-weight: 500; min-width: 28px; }
-  /* Generate button */
-  .gen-btn {
-    width: 100%; padding: 13px; background: var(--text-primary); color: var(--bg-primary);
-    border: none; border-radius: var(--radius-lg); font-size: 14px; font-weight: 500;
-    cursor: pointer; font-family: inherit; display: flex; align-items: center;
-    justify-content: center; gap: 8px; transition: opacity 0.15s;
-  }
-  .gen-btn:hover { opacity: 0.82; }
-  .gen-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-  /* Output */
-  .output-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-  .output-label { font-size: 12px; font-weight: 500; color: var(--text-secondary); }
-  .output-actions { display: flex; gap: 8px; }
-  .out-btn {
-    font-size: 11px; padding: 5px 12px; border: 0.5px solid var(--border-strong);
-    border-radius: 20px; cursor: pointer; background: transparent; color: var(--text-secondary);
-    font-family: inherit; transition: background 0.12s;
-  }
-  .out-btn:hover { background: var(--bg-secondary); }
-  .output-body { font-size: 14px; line-height: 1.8; color: var(--text-primary); white-space: pre-wrap; }
-  /* Variants */
-  .variant-card { border: 0.5px solid var(--border); border-radius: var(--radius-md); padding: 14px; cursor: pointer; margin-bottom: 10px; transition: border-color 0.15s; }
-  .variant-card:hover { border-color: var(--border-strong); }
-  .variant-card.selected { border: 1.5px solid var(--text-primary); }
-  .variant-label { font-size: 10px; font-weight: 500; color: var(--text-tertiary); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px; }
-  .variant-hook { font-size: 13px; line-height: 1.5; color: var(--text-primary); margin-bottom: 8px; }
-  .variant-sub { font-size: 11px; color: var(--text-tertiary); border-top: 0.5px solid var(--border); padding-top: 6px; }
-  /* Right panel */
-  .rightpanel { border-left: 0.5px solid var(--border); background: var(--bg-primary); overflow-y: auto; }
-  .rp-section { padding: 16px; border-bottom: 0.5px solid var(--border); }
-  .rp-title { font-size: 10px; font-weight: 500; color: var(--text-tertiary); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 12px; }
-  /* Timer */
-  .timer-num { font-size: 30px; font-weight: 500; letter-spacing: -1.5px; font-variant-numeric: tabular-nums; }
-  .timer-sub { font-size: 11px; color: var(--text-tertiary); margin-top: 3px; }
-  .timer-btns { display: flex; gap: 8px; margin-top: 10px; }
-  .t-btn { font-size: 12px; padding: 6px 14px; border: 0.5px solid var(--border-strong); border-radius: 20px; cursor: pointer; background: transparent; color: var(--text-secondary); font-family: inherit; transition: background 0.12s; }
-  .t-btn:hover { background: var(--bg-secondary); }
-  .t-btn.primary { background: var(--text-primary); color: var(--bg-primary); border-color: var(--text-primary); }
-  .t-btn.primary:hover { opacity: 0.82; }
-  /* Metrics */
-  .metric-row { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; }
-  .m-name { font-size: 12px; color: var(--text-secondary); }
-  .m-val { font-size: 12px; font-weight: 500; }
-  .m-bar { height: 3px; background: var(--border); border-radius: 2px; margin: 3px 0 10px; }
-  .m-fill { height: 3px; border-radius: 2px; background: var(--text-primary); transition: width 0.6s; }
-  /* Formula */
-  .formula { background: var(--bg-secondary); border-radius: var(--radius-md); padding: 10px 12px; font-size: 12px; color: var(--text-secondary); line-height: 1.7; }
-  .fv { color: var(--text-primary); font-weight: 500; }
-  /* Tools */
-  .tool-row { display: flex; align-items: center; justify-content: space-between; padding: 5px 0; }
-  .tool-name { font-size: 12px; }
-  .tool-badge { font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 500; }
-  .on { background: var(--success-bg); color: var(--success-text); }
-  .off { background: var(--bg-secondary); color: var(--text-tertiary); }
-  /* History */
-  .h-item { padding: 7px 0; border-bottom: 0.5px solid var(--border); }
-  .h-item:last-child { border-bottom: none; }
-  .h-meta { font-size: 10px; color: var(--text-tertiary); margin-bottom: 2px; }
-  .h-text { font-size: 12px; color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  /* Spinner */
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .spinner { width: 14px; height: 14px; border: 2px solid rgba(128,128,128,0.3); border-top-color: var(--bg-primary); border-radius: 50%; animation: spin 0.7s linear infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-  .pulsing { animation: pulse 1.3s ease-in-out infinite; color: var(--text-tertiary); font-style: italic; }
-  .hidden { display: none !important; }
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 2px; }
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg-page);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── LAYOUT ── */
+.app { display: grid; grid-template-rows: 52px 1fr; height: 100vh; overflow: hidden; }
+
+/* ── TOPBAR ── */
+.topbar {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 28px;
+  box-shadow: var(--shadow-header);
+  position: relative; z-index: 10;
+}
+@media (prefers-color-scheme: dark) {
+  .topbar { background: rgba(10,10,10,0.92); }
+}
+
+.logo-wrap { display: flex; align-items: center; gap: 10px; }
+.logo-symbol {
+  width: 28px; height: 28px;
+  background: var(--black);
+  border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+@media (prefers-color-scheme: dark) {
+  .logo-symbol { background: #ffffff; }
+}
+.logo-symbol svg { width: 16px; height: 16px; }
+.logo-name {
+  font-family: 'Sora', sans-serif;
+  font-weight: 400;
+  font-size: 17px;
+  letter-spacing: -0.3px;
+  color: var(--text);
+}
+.logo-name span { color: var(--red-500); }
+
+.topbar-center {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 6px;
+}
+.sprint-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-500); }
+.sprint-label { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+
+.bench-pill {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 600;
+  padding: 5px 14px; border-radius: 100px;
+  background: var(--red-50);
+  color: var(--red-500);
+  border: 1px solid var(--red-100);
+  transition: all 0.3s;
+}
+
+/* ── MAIN GRID ── */
+.main { display: grid; grid-template-columns: 200px 1fr 272px; height: calc(100vh - 52px); overflow: hidden; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border);
+  padding: 20px 0;
+  overflow-y: auto;
+  display: flex; flex-direction: column; gap: 0;
+}
+.sb-section { padding: 0 12px; margin-bottom: 8px; }
+.sb-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0 8px;
+  margin-bottom: 6px;
+  display: block;
+}
+.sb-item {
+  display: flex; align-items: center; gap: 9px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.12s;
+  margin-bottom: 1px;
+  text-decoration: none;
+}
+.sb-item:hover { background: var(--gray-50); }
+.sb-item.active { background: var(--red-50); }
+.sb-item.active .sb-item-text { color: var(--red-500); font-weight: 600; }
+.sb-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.sb-item-text { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
+.sb-item-emoji { font-size: 14px; flex-shrink: 0; }
+.sb-divider { height: 1px; background: var(--border); margin: 10px 12px; }
+
+.h-item { padding: 7px 8px; border-radius: 8px; cursor: pointer; }
+.h-item:hover { background: var(--gray-50); }
+.h-meta { font-size: 10px; color: var(--text-muted); margin-bottom: 2px; font-weight: 500; }
+.h-text { font-size: 12px; color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ── CENTER ── */
+.center { display: flex; flex-direction: column; overflow: hidden; background: var(--bg-page); }
+
+.tabs-bar {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-end;
+  padding: 0 24px;
+  gap: 0;
+}
+.tab {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; font-weight: 500;
+  padding: 14px 18px 12px;
+  cursor: pointer;
+  color: var(--text-muted);
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.tab:hover { color: var(--text-secondary); }
+.tab.active { color: var(--red-500); border-bottom-color: var(--red-500); font-weight: 600; }
+
+.content-scroll { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+}
+.card-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  display: block;
+}
+
+/* Product banner */
+.prod-banner {
+  background: linear-gradient(135deg, var(--red-50) 0%, #fff 100%);
+  border: 1px solid var(--red-100);
+  border-radius: 18px;
+  padding: 16px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+@media (prefers-color-scheme: dark) {
+  .prod-banner { background: linear-gradient(135deg, #1f0a0a 0%, #1a1a1a 100%); }
+}
+.prod-banner-label { font-size: 11px; color: var(--text-muted); margin-bottom: 3px; font-weight: 500; }
+.prod-banner-name { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 400; color: var(--text); }
+.prod-banner-emoji { font-size: 28px; }
+
+/* Param grid */
+.param-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.pf { display: flex; flex-direction: column; gap: 5px; }
+.pf.full { grid-column: 1/-1; }
+.pf label {
+  font-size: 11px; font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+.pf select, .pf textarea {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 9px 12px;
+  background: var(--input-bg);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s;
+  appearance: none;
+}
+.pf select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; padding-right: 32px; }
+.pf select:focus, .pf textarea:focus { border-color: var(--red-400); }
+.pf textarea { resize: vertical; min-height: 76px; line-height: 1.55; }
+
+/* Multiplier */
+.mult-row { display: flex; align-items: center; gap: 14px; }
+.mult-row input[type=range] { flex: 1; accent-color: var(--red-500); height: 4px; }
+.mult-num { font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 300; color: var(--red-500); min-width: 36px; }
+.mult-hint { font-size: 11px; color: var(--text-muted); margin-top: 6px; line-height: 1.5; }
+
+/* CTA Button — T1 primary landing style */
+.cta-btn {
+  width: 100%;
+  height: 45px;
+  background: var(--red-400);
+  color: white;
+  border: none;
+  border-radius: 18px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+  box-shadow: 0 4px 16px rgba(226,97,83,0.3);
+}
+.cta-btn:hover { background: var(--red-500); box-shadow: 0 6px 20px rgba(219,59,43,0.35); transform: translateY(-1px); }
+.cta-btn:active { transform: translateY(0); }
+.cta-btn:disabled { background: var(--red-200); cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* Output */
+.out-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.out-label { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 400; color: var(--text); }
+.out-actions { display: flex; gap: 8px; }
+.out-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 600;
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-secondary);
+  transition: all 0.12s;
+}
+.out-btn:hover { border-color: var(--red-400); color: var(--red-400); }
+.out-body { font-size: 14px; line-height: 1.8; color: var(--text-secondary); white-space: pre-wrap; }
+
+/* Section dividers in output */
+.out-section { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+.out-section:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.out-section-title {
+  font-size: 10px; font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.out-section-body { font-size: 14px; line-height: 1.75; color: var(--text-secondary); }
+
+/* Variants */
+.variant-card {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: all 0.15s;
+}
+.variant-card:hover { border-color: var(--gray-400); box-shadow: var(--shadow-card); }
+.variant-card.selected { border-color: var(--red-400); border-width: 1.5px; background: var(--red-50); }
+.variant-num { font-size: 10px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 5px; }
+.variant-angle { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 400; color: var(--text); margin-bottom: 6px; }
+.variant-hook { font-size: 13px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 8px; }
+.variant-sub { font-size: 11px; color: var(--text-muted); padding-top: 8px; border-top: 1px solid var(--border); }
+
+/* ── RIGHT PANEL ── */
+.rightpanel {
+  border-left: 1px solid var(--border);
+  background: var(--bg-sidebar);
+  overflow-y: auto;
+  display: flex; flex-direction: column;
+}
+.rp-block { padding: 18px; border-bottom: 1px solid var(--border); }
+.rp-title { font-size: 10px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px; }
+
+/* Timer */
+.timer-num { font-family: 'Sora', sans-serif; font-size: 36px; font-weight: 300; letter-spacing: -2px; color: var(--text); font-variant-numeric: tabular-nums; }
+.timer-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; margin-bottom: 12px; }
+.timer-btns { display: flex; gap: 8px; }
+.t-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 600;
+  padding: 7px 16px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-secondary);
+  transition: all 0.12s;
+}
+.t-btn:hover { border-color: var(--gray-400); }
+.t-btn.primary { background: var(--red-500); color: white; border-color: var(--red-500); }
+.t-btn.primary:hover { background: var(--red-700); border-color: var(--red-700); }
+
+/* Formula */
+.formula { background: var(--gray-50); border-radius: 12px; padding: 12px 14px; font-size: 12px; color: var(--text-muted); line-height: 1.8; border: 1px solid var(--border); }
+.fv { color: var(--red-500); font-weight: 700; }
+
+/* Metrics */
+.m-row { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; }
+.m-name { font-size: 12px; color: var(--text-muted); }
+.m-val { font-size: 13px; font-weight: 600; color: var(--text); }
+.m-bar { height: 2px; background: var(--border); border-radius: 2px; margin: 4px 0 12px; }
+.m-fill { height: 2px; border-radius: 2px; background: var(--red-400); transition: width 0.6s ease; }
+
+/* Tools */
+.tool-row { display: flex; align-items: center; justify-content: space-between; padding: 5px 0; }
+.tool-name { font-size: 12px; color: var(--text-secondary); }
+.tool-badge { font-size: 10px; padding: 3px 9px; border-radius: 100px; font-weight: 600; }
+.on { background: var(--green-100); color: #15803d; }
+.off { background: var(--gray-100); color: var(--text-muted); }
+
+/* Flow steps */
+.step-row { display: flex; align-items: center; gap: 10px; padding: 6px 0; }
+.step-circle {
+  width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700;
+  border: 1.5px solid var(--border);
+  color: var(--text-muted);
+  transition: all 0.3s;
+}
+.step-circle.done { background: var(--red-500); border-color: var(--red-500); color: white; }
+.step-circle.active { border-color: var(--red-400); color: var(--red-400); }
+.step-text { font-size: 12px; color: var(--text-muted); transition: color 0.3s; }
+.step-text.active { color: var(--text); font-weight: 500; }
+
+/* Animations */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.35); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; }
+@keyframes shimmer { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.shimmer { animation: shimmer 1.4s ease-in-out infinite; }
+
+.hidden { display: none !important; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 2px; }
 </style>
 </head>
 <body>
 <div class="app">
 
-  <!-- Topbar -->
+  <!-- TOPBAR -->
   <div class="topbar">
-    <div class="logo">T1zima <span class="logo-badge">MVP v0.1</span></div>
-    <span class="bench-pill" id="benchPill">0 variantes generadas</span>
+    <div class="logo-wrap">
+      <div class="logo-symbol">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="5" height="12" rx="1" fill="white"/>
+          <rect x="9" y="2" width="5" height="5" rx="1" fill="#DB3B2B"/>
+          <rect x="9" y="9" width="5" height="5" rx="1" fill="white"/>
+        </svg>
+      </div>
+      <span class="logo-name">T1<span>zima</span></span>
+    </div>
+
+    <div class="topbar-center">
+      <div class="sprint-dot" id="sprintDot"></div>
+      <span class="sprint-label" id="sprintLabel">Agente de contenido</span>
+    </div>
+
+    <span class="bench-pill" id="benchPill">0 variantes</span>
   </div>
 
   <div class="main">
 
-    <!-- Sidebar -->
+    <!-- SIDEBAR -->
     <div class="sidebar">
-      <div class="sidebar-section">
-        <div class="sidebar-label">Modo</div>
-        <div class="sidebar-item active" onclick="setMode('full')" id="mode-full"><div class="dot dot-full"></div><span>Flujo completo</span></div>
-        <div class="sidebar-item" onclick="setMode('video')" id="mode-video"><div class="dot dot-video"></div><span>Video / guión</span></div>
-        <div class="sidebar-item" onclick="setMode('audio')" id="mode-audio"><div class="dot dot-audio"></div><span>Audio / ElevenLabs</span></div>
-        <div class="sidebar-item" onclick="setMode('copy')" id="mode-copy"><div class="dot dot-copy"></div><span>Copy / redes</span></div>
+      <div class="sb-section">
+        <span class="sb-label">Modo</span>
+        <div class="sb-item active" onclick="setMode('full')" id="mode-full">
+          <div class="sb-dot" style="background:#2180FF"></div>
+          <span class="sb-item-text">Flujo completo</span>
+        </div>
+        <div class="sb-item" onclick="setMode('video')" id="mode-video">
+          <div class="sb-dot" style="background:#8B5CF6"></div>
+          <span class="sb-item-text">Video / guión</span>
+        </div>
+        <div class="sb-item" onclick="setMode('audio')" id="mode-audio">
+          <div class="sb-dot" style="background:#EDBD55"></div>
+          <span class="sb-item-text">Audio / ElevenLabs</span>
+        </div>
+        <div class="sb-item" onclick="setMode('copy')" id="mode-copy">
+          <div class="sb-dot" style="background:#4FC153"></div>
+          <span class="sb-item-text">Copy / redes</span>
+        </div>
       </div>
-      <div class="sidebar-divider"></div>
-      <div class="sidebar-section">
-        <div class="sidebar-label">Producto T1</div>
-        <div class="sidebar-item" onclick="setProduct('tienda')" id="prod-tienda"><span>🛍 T1tienda</span></div>
-        <div class="sidebar-item" onclick="setProduct('pagos')" id="prod-pagos"><span>💳 T1pagos</span></div>
-        <div class="sidebar-item" onclick="setProduct('envios')" id="prod-envios"><span>📦 T1envíos</span></div>
-        <div class="sidebar-item" onclick="setProduct('score')" id="prod-score"><span>🛡 T1score</span></div>
-        <div class="sidebar-item" onclick="setProduct('partners')" id="prod-partners"><span>🤝 T1Partners</span></div>
-        <div class="sidebar-item" onclick="setProduct('ecosistema')" id="prod-ecosistema"><span>🔵 Ecosistema T1</span></div>
+
+      <div class="sb-divider"></div>
+
+      <div class="sb-section">
+        <span class="sb-label">Producto</span>
+        <div class="sb-item" onclick="setProduct('tienda')" id="prod-tienda">
+          <span class="sb-item-emoji">🛍</span>
+          <span class="sb-item-text">T1tienda</span>
+        </div>
+        <div class="sb-item" onclick="setProduct('pagos')" id="prod-pagos">
+          <span class="sb-item-emoji">💳</span>
+          <span class="sb-item-text">T1pagos</span>
+        </div>
+        <div class="sb-item" onclick="setProduct('envios')" id="prod-envios">
+          <span class="sb-item-emoji">📦</span>
+          <span class="sb-item-text">T1envíos</span>
+        </div>
+        <div class="sb-item" onclick="setProduct('score')" id="prod-score">
+          <span class="sb-item-emoji">🛡</span>
+          <span class="sb-item-text">T1score</span>
+        </div>
+        <div class="sb-item" onclick="setProduct('partners')" id="prod-partners">
+          <span class="sb-item-emoji">🤝</span>
+          <span class="sb-item-text">T1Partners</span>
+        </div>
+        <div class="sb-item" onclick="setProduct('ecosistema')" id="prod-ecosistema">
+          <span class="sb-item-emoji">🔵</span>
+          <span class="sb-item-text">Ecosistema T1</span>
+        </div>
       </div>
-      <div class="sidebar-divider"></div>
-      <div class="sidebar-section">
-        <div class="sidebar-label">Historial sesión</div>
-        <div id="historyList"><div style="font-size:12px;color:var(--text-tertiary)">Sin sesiones aún</div></div>
+
+      <div class="sb-divider"></div>
+
+      <div class="sb-section">
+        <span class="sb-label">Historial</span>
+        <div id="histList"><div style="font-size:12px;color:var(--text-muted);padding:4px 8px">Sin sesiones</div></div>
       </div>
     </div>
 
-    <!-- Center -->
+    <!-- CENTER -->
     <div class="center">
-      <div class="center-header">
-        <div class="mode-tab active" onclick="setTab('params')" id="tab-params">Parámetros</div>
-        <div class="mode-tab" onclick="setTab('output')" id="tab-output">Output</div>
-        <div class="mode-tab" onclick="setTab('variantes')" id="tab-variantes">Variantes</div>
+      <div class="tabs-bar">
+        <div class="tab active" onclick="setTab('params')" id="tab-params">Parámetros</div>
+        <div class="tab" onclick="setTab('output')" id="tab-output">Output</div>
+        <div class="tab" onclick="setTab('variantes')" id="tab-variantes">Variantes</div>
       </div>
 
-      <div class="content-area">
+      <div class="content-scroll">
 
-        <!-- PARAMS PANEL -->
+        <!-- PARAMS -->
         <div id="panel-params">
-          <div class="card" style="background:var(--bg-secondary);border:0.5px solid var(--border);">
-            <div style="font-size:11px;color:var(--text-tertiary);margin-bottom:4px;">Producto seleccionado</div>
-            <div style="font-size:16px;font-weight:500;" id="prodBanner">👈 Elige un producto en el sidebar</div>
+          <div class="prod-banner" id="prodBanner">
+            <div>
+              <div class="prod-banner-label">Producto seleccionado</div>
+              <div class="prod-banner-name" id="prodName">Elige un producto →</div>
+            </div>
+            <div class="prod-banner-emoji" id="prodEmoji">👈</div>
           </div>
 
           <div class="card">
-            <div class="card-title">Parámetros de contenido</div>
+            <span class="card-label">Parámetros de contenido</span>
             <div class="param-grid">
-              <div class="param-field">
-                <label>Audiencia</label>
+              <div class="pf">
+                <label>AUDIENCIA</label>
                 <select id="audiencia">
                   <option>PyME / Emprendedor</option>
                   <option>Operador growth</option>
@@ -213,8 +529,8 @@
                   <option>Partner / Agencia</option>
                 </select>
               </div>
-              <div class="param-field">
-                <label>Canal</label>
+              <div class="pf">
+                <label>CANAL</label>
                 <select id="canal">
                   <option>Instagram Reels</option>
                   <option>TikTok</option>
@@ -224,8 +540,8 @@
                   <option>WhatsApp</option>
                 </select>
               </div>
-              <div class="param-field">
-                <label>Formato</label>
+              <div class="pf">
+                <label>FORMATO</label>
                 <select id="formato">
                   <option>Video corto (15-60s)</option>
                   <option>Carrusel educativo</option>
@@ -234,8 +550,8 @@
                   <option>Thread</option>
                 </select>
               </div>
-              <div class="param-field">
-                <label>Tono</label>
+              <div class="pf">
+                <label>TONO</label>
                 <select id="tono">
                   <option>Directo / práctico</option>
                   <option>Ejecutivo / estratégico</option>
@@ -243,49 +559,49 @@
                   <option>Bold / aspiracional</option>
                 </select>
               </div>
-              <div class="param-field full">
-                <label>Ángulo / tema</label>
-                <textarea id="angulo" placeholder="Ej: por qué vender solo en marketplace te está costando clientes y datos propios..."></textarea>
+              <div class="pf full">
+                <label>ÁNGULO / TEMA</label>
+                <textarea id="angulo" placeholder="Ej: por qué vender solo en marketplace te está costando clientes y datos..."></textarea>
               </div>
             </div>
           </div>
 
           <div class="card">
-            <div class="card-title">Multiplicador forzado</div>
+            <span class="card-label">Multiplicador forzado</span>
             <div class="mult-row">
               <input type="range" min="1" max="10" value="3" step="1" id="multiplier" oninput="updateFormula()">
-              <div class="mult-val" id="multVal">3</div>
+              <div class="mult-num" id="multVal">3</div>
             </div>
-            <div style="font-size:11px;color:var(--text-tertiary);margin-top:6px;">Variantes simultáneas — ángulos distintos, no paráfrasis</div>
+            <div class="mult-hint">Variantes simultáneas — ángulos distintos, no paráfrasis. La presión produce claridad.</div>
           </div>
 
-          <button class="gen-btn" id="genBtn" onclick="generate()">
+          <button class="cta-btn" id="genBtn" onclick="generate()">
             <span id="genTxt">Generar contenido</span>
             <div class="spinner hidden" id="genSpin"></div>
           </button>
         </div>
 
-        <!-- OUTPUT PANEL -->
+        <!-- OUTPUT -->
         <div id="panel-output" class="hidden">
           <div class="card">
-            <div class="output-header">
-              <span class="output-label" id="outLabel">Output</span>
-              <div class="output-actions">
+            <div class="out-header">
+              <span class="out-label" id="outLabel">Output</span>
+              <div class="out-actions">
                 <button class="out-btn" onclick="copyOut()">Copiar</button>
-                <button class="out-btn" onclick="setTab('variantes')">Variantes</button>
-                <button class="out-btn" onclick="setTab('params')">← Editar</button>
+                <button class="out-btn" onclick="setTab('variantes')">Ver variantes</button>
+                <button class="out-btn" onclick="setTab('params')">Editar</button>
               </div>
             </div>
-            <div class="output-body" id="outBody">Genera contenido para ver el output aquí.</div>
+            <div id="outSections"></div>
           </div>
         </div>
 
-        <!-- VARIANTES PANEL -->
+        <!-- VARIANTES -->
         <div id="panel-variantes" class="hidden">
           <div class="card">
-            <div class="output-header">
-              <span class="output-label">Variantes generadas</span>
-              <span style="font-size:11px;color:var(--text-tertiary)" id="varCount">0 variantes</span>
+            <div class="out-header">
+              <span class="out-label">Variantes</span>
+              <span style="font-size:12px;color:var(--text-muted)" id="varCount">0 variantes</span>
             </div>
             <div id="varGrid"></div>
           </div>
@@ -294,10 +610,10 @@
       </div>
     </div>
 
-    <!-- Right Panel -->
+    <!-- RIGHT PANEL -->
     <div class="rightpanel">
 
-      <div class="rp-section">
+      <div class="rp-block">
         <div class="rp-title">Sprint Timer</div>
         <div class="timer-num" id="timerNum">25:00</div>
         <div class="timer-sub" id="timerSub">Jake Knapp — máximo foco</div>
@@ -307,26 +623,36 @@
         </div>
       </div>
 
-      <div class="rp-section">
+      <div class="rp-block">
         <div class="rp-title">Fórmula de impacto</div>
         <div class="formula">
-          1 idea × <span class="fv" id="fMult">3</span> variantes = <span class="fv" id="fTotal">3</span> piezas/sprint<br>
-          Tasa objetivo: 1 / <span id="fDen">3</span> → producción
+          1 idea × <span class="fv" id="fMult">3</span> variantes<br>
+          = <span class="fv" id="fTotal">3</span> piezas / sprint<br>
+          <span style="color:var(--text-muted)">Tasa objetivo: 1/<span id="fDen">3</span> → producción</span>
         </div>
       </div>
 
-      <div class="rp-section">
+      <div class="rp-block">
         <div class="rp-title">Benchmarks</div>
-        <div class="metric-row"><span class="m-name">Piezas generadas</span><span class="m-val" id="mPiezas">0</span></div>
-        <div class="m-bar"><div class="m-fill" id="bPiezas" style="width:0%"></div></div>
-        <div class="metric-row"><span class="m-name">Variantes totales</span><span class="m-val" id="mVars">0</span></div>
-        <div class="m-bar"><div class="m-fill" id="bVars" style="width:0%"></div></div>
-        <div class="metric-row"><span class="m-name">Sprint activo</span><span class="m-val" id="mTime">0 min</span></div>
-        <div class="m-bar"><div class="m-fill" id="bTime" style="width:0%"></div></div>
+        <div class="m-row"><span class="m-name">Piezas generadas</span><span class="m-val" id="mP">0</span></div>
+        <div class="m-bar"><div class="m-fill" id="bP" style="width:0%"></div></div>
+        <div class="m-row"><span class="m-name">Variantes totales</span><span class="m-val" id="mV">0</span></div>
+        <div class="m-bar"><div class="m-fill" id="bV" style="width:0%"></div></div>
+        <div class="m-row"><span class="m-name">Sprint activo</span><span class="m-val" id="mT">0 min</span></div>
+        <div class="m-bar"><div class="m-fill" id="bT" style="width:0%"></div></div>
       </div>
 
-      <div class="rp-section">
-        <div class="rp-title">Stack de producción</div>
+      <div class="rp-block">
+        <div class="rp-title">Flujo de producción</div>
+        <div class="step-row"><div class="step-circle done" id="sc1">1</div><span class="step-text active" id="st1">Parámetros</span></div>
+        <div class="step-row"><div class="step-circle" id="sc2">2</div><span class="step-text" id="st2">Guión + copy</span></div>
+        <div class="step-row"><div class="step-circle" id="sc3">3</div><span class="step-text" id="st3">Prompt visual</span></div>
+        <div class="step-row"><div class="step-circle" id="sc4">4</div><span class="step-text" id="st4">Audio ElevenLabs</span></div>
+        <div class="step-row"><div class="step-circle" id="sc5">5</div><span class="step-text" id="st5">Publicación</span></div>
+      </div>
+
+      <div class="rp-block">
+        <div class="rp-title">Stack activo</div>
         <div class="tool-row"><span class="tool-name">ElevenLabs</span><span class="tool-badge on">Activo</span></div>
         <div class="tool-row"><span class="tool-name">Runway</span><span class="tool-badge on">Activo</span></div>
         <div class="tool-row"><span class="tool-name">Higgsfield</span><span class="tool-badge on">Activo</span></div>
@@ -336,26 +662,19 @@
         <div class="tool-row"><span class="tool-name">TouchDesigner</span><span class="tool-badge off">Pronto</span></div>
       </div>
 
-      <div class="rp-section">
-        <div class="rp-title">Historial</div>
-        <div id="rpHist"><div style="font-size:12px;color:var(--text-tertiary)">Sin sesiones aún</div></div>
-      </div>
-
     </div>
   </div>
 </div>
 
 <script>
 const PRODUCTS = {
-  tienda:     { name:'T1tienda',      emoji:'🛍',  ctx:'T1tienda: tienda online + operación multicanal centralizada. Dolores: inventario fragmentado entre canales, overselling, sin control de marca, cambiar precios en varios lados es caos, sin datos propios del cliente. Métricas clave: conversión, GMV por canal, % ventas canal propio vs marketplace.' },
-  pagos:      { name:'T1pagos',       emoji:'💳',  ctx:'T1pagos: cobros tipo Stripe — API, links de pago, suscripciones, MSI, SPEI+tarjetas, liquidación T+1. Dolores: rechazos de pago que matan conversión, cashflow lento, sin meses sin intereses, querer vender por WhatsApp sin montar un ecommerce.' },
-  envios:     { name:'T1envíos',      emoji:'📦',  ctx:'T1envíos: cotiza y genera guías multi-paquetería, control de calidad (incidencias/sobrepesos), tracking centralizado. Dolores: operación manual lenta y propensa a error, sin visibilidad del status, sobrepesos que comen margen sin avisar, incidencias sin trazabilidad.' },
-  score:      { name:'T1score',       emoji:'🛡',  ctx:'T1score: scoring/decisiones de riesgo en tiempo real. Reduce fraude y contracargos sin bloquear ventas legítimas. Dolores: fraude revisado manualmente, falsos positivos que matan conversión, pérdidas silenciosas por contracargos.' },
-  partners:   { name:'T1Partners',    emoji:'🤝',  ctx:'T1Partners: programa para agencias, consultores, resellers que quieren monetizar recomendando T1 con comisiones recurrentes, sin ser developer. Audiencia: partners que buscan ingresos adicionales activando clientes en comercio digital.' },
-  ecosistema: { name:'T1 Ecosistema', emoji:'🔵',  ctx:'T1 ecosistema AI-first: T1tienda (vender) + T1pagos (cobrar) + T1envíos (enviar) + T1score (reducir riesgo). El valor real está en la integración end-to-end: menos fragmentación, más operación medible y escalable desde México.' }
+  tienda:     { name:'T1tienda',      emoji:'🛍',  ctx:'T1tienda: tienda online + operación multicanal centralizada. Dolores: inventario fragmentado, overselling, sin control de marca, sin datos propios del cliente. Métricas: conversión, GMV por canal, % ventas canal propio vs marketplace.' },
+  pagos:      { name:'T1pagos',       emoji:'💳',  ctx:'T1pagos: cobros tipo Stripe — API, links de pago, suscripciones, MSI, SPEI+tarjetas, liquidación T+1. Dolores: rechazos de pago, cashflow lento, sin MSI, querer vender por WhatsApp sin ecommerce.' },
+  envios:     { name:'T1envíos',      emoji:'📦',  ctx:'T1envíos: cotiza guías multi-paquetería, control de calidad (incidencias/sobrepesos), tracking centralizado. Dolores: operación manual, sin visibilidad, sobrepesos que comen margen, incidencias sin trazabilidad.' },
+  score:      { name:'T1score',       emoji:'🛡',  ctx:'T1score: scoring/decisiones de riesgo en tiempo real. Reduce fraude y contracargos sin bloquear ventas legítimas. Dolores: fraude manual, falsos positivos que matan conversión, pérdidas silenciosas.' },
+  partners:   { name:'T1Partners',    emoji:'🤝',  ctx:'T1Partners: programa para agencias, consultores, resellers. Monetiza recomendando T1 con comisiones recurrentes, sin ser developer. Audiencia: partners que buscan ingresos adicionales activando clientes.' },
+  ecosistema: { name:'T1 Ecosistema', emoji:'🔵',  ctx:'T1 ecosistema AI-first: T1tienda + T1pagos + T1envíos + T1score. Valor = integración end-to-end, menos fragmentación, operación medible y escalable desde México.' }
 };
-
-const BRAND = 'Brand T1: Sharp, práctico, sin hype vacío. Beneficio PRIMERO, descripción después — siempre estilo Apple. Tono: directo, operacional, ambicioso pero creíble. NUNCA empezar con el nombre del producto, SIEMPRE empezar con el dolor o el beneficio del usuario.';
 
 const ANGLES = {
   tienda:'Por qué vender solo en marketplace te está costando clientes, datos y marca propia',
@@ -366,172 +685,206 @@ const ANGLES = {
   ecosistema:'El stack fragmentado que frena a cada comercio en México'
 };
 
-let curMode = 'full', curProd = null, variants = [];
-let sPiezas = 0, sVars = 0;
-let timerOn = false, timerSec = 1500, timerIv = null, sprintMin = 0;
+const BRAND = 'Brand T1: Sharp, práctico, sin hype. Beneficio PRIMERO, descripción después — estilo Apple. NUNCA empezar con el nombre del producto. Siempre: dolor o beneficio → solución → outcome medible. Tono: directo, operacional, ambicioso pero creíble.';
+
+let curMode='full', curProd=null, variants=[];
+let sPiezas=0, sVars=0;
+let timerOn=false, timerSec=1500, timerIv=null, sprintMin=0;
+let curVariantText = '';
 
 function setMode(m) {
-  curMode = m;
-  document.querySelectorAll('[id^="mode-"]').forEach(el => el.classList.remove('active'));
-  document.getElementById('mode-' + m).classList.add('active');
+  curMode=m;
+  document.querySelectorAll('[id^="mode-"]').forEach(el=>el.classList.remove('active'));
+  document.getElementById('mode-'+m).classList.add('active');
 }
 
 function setProduct(p) {
-  curProd = p;
-  document.querySelectorAll('[id^="prod-"]').forEach(el => el.classList.remove('active'));
-  document.getElementById('prod-' + p).classList.add('active');
-  document.getElementById('prodBanner').textContent = PRODUCTS[p].emoji + ' ' + PRODUCTS[p].name;
-  const el = document.getElementById('angulo');
-  if (!el.dataset.edited) el.value = ANGLES[p] || '';
+  curProd=p;
+  document.querySelectorAll('[id^="prod-"]').forEach(el=>el.classList.remove('active'));
+  document.getElementById('prod-'+p).classList.add('active');
+  const prod=PRODUCTS[p];
+  document.getElementById('prodName').textContent=prod.name;
+  document.getElementById('prodEmoji').textContent=prod.emoji;
+  const el=document.getElementById('angulo');
+  if(!el.dataset.edited) el.value=ANGLES[p]||'';
 }
 
 function setTab(t) {
-  ['params','output','variantes'].forEach(x => {
-    document.getElementById('panel-' + x).classList.add('hidden');
-    document.getElementById('tab-' + x).classList.remove('active');
+  ['params','output','variantes'].forEach(x=>{
+    document.getElementById('panel-'+x).classList.add('hidden');
+    document.getElementById('tab-'+x).classList.remove('active');
   });
-  document.getElementById('panel-' + t).classList.remove('hidden');
-  document.getElementById('tab-' + t).classList.add('active');
+  document.getElementById('panel-'+t).classList.remove('hidden');
+  document.getElementById('tab-'+t).classList.add('active');
 }
 
 function updateFormula() {
-  const v = document.getElementById('multiplier').value;
-  document.getElementById('multVal').textContent = v;
-  document.getElementById('fMult').textContent = v;
-  document.getElementById('fTotal').textContent = v;
-  document.getElementById('fDen').textContent = v;
+  const v=document.getElementById('multiplier').value;
+  document.getElementById('multVal').textContent=v;
+  document.getElementById('fMult').textContent=v;
+  document.getElementById('fTotal').textContent=v;
+  document.getElementById('fDen').textContent=v;
+}
+
+function setSteps(active) {
+  for(let i=1;i<=5;i++){
+    const c=document.getElementById('sc'+i);
+    const t=document.getElementById('st'+i);
+    if(i<active){c.classList.add('done');c.classList.remove('active');t.classList.add('active');}
+    else if(i===active){c.classList.remove('done');c.classList.add('active');t.classList.add('active');}
+    else{c.classList.remove('done','active');t.classList.remove('active');}
+  }
 }
 
 async function generate() {
-  if (!curProd) { alert('Elige un producto T1 en el sidebar primero.'); return; }
-  const prod = PRODUCTS[curProd];
-  const audiencia = document.getElementById('audiencia').value;
-  const canal = document.getElementById('canal').value;
-  const formato = document.getElementById('formato').value;
-  const tono = document.getElementById('tono').value;
-  const angulo = document.getElementById('angulo').value || 'Beneficio principal del producto';
-  const mult = parseInt(document.getElementById('multiplier').value);
+  if(!curProd){alert('Elige un producto T1 primero.');return;}
+  const prod=PRODUCTS[curProd];
+  const audiencia=document.getElementById('audiencia').value;
+  const canal=document.getElementById('canal').value;
+  const formato=document.getElementById('formato').value;
+  const tono=document.getElementById('tono').value;
+  const angulo=document.getElementById('angulo').value||'Beneficio principal';
+  const mult=parseInt(document.getElementById('multiplier').value);
 
-  const btn = document.getElementById('genBtn');
-  const spin = document.getElementById('genSpin');
-  const txt = document.getElementById('genTxt');
-  btn.disabled = true; txt.textContent = 'Generando...'; spin.classList.remove('hidden');
+  const btn=document.getElementById('genBtn');
+  const spin=document.getElementById('genSpin');
+  const txt=document.getElementById('genTxt');
+  btn.disabled=true; txt.textContent='Generando...'; spin.classList.remove('hidden');
+  setSteps(2);
 
-  document.getElementById('outBody').innerHTML = '<span class="pulsing">Generando ' + mult + ' variantes para ' + prod.name + '...</span>';
+  document.getElementById('outSections').innerHTML=`<div class="shimmer" style="color:var(--text-muted);font-size:13px;padding:8px 0">Generando ${mult} variantes para ${prod.name}...</div>`;
   setTab('output');
 
-  const sys = `Eres T1zima, agente de contenido de T1.\n${BRAND}\n\nContexto del producto:\n${prod.ctx}\n\nREGLAS ABSOLUTAS:\n1. NUNCA empieces con el nombre del producto — empieza con el dolor o el beneficio\n2. Cada variante tiene ángulo DISTINTO (no paráfrasis del mismo punto)\n3. Gancho: máximo 2 líneas, curiosidad o identificación inmediata\n4. Contenido 100% listo para publicar en el canal indicado\n5. Prompts visuales en inglés, cinematográficos y específicos\n6. Prompt de audio incluye: tono + pace + emoción + energía\n7. Responde SOLO JSON válido sin markdown ni texto extra`;
+  const sys=`Eres T1zima, agente de contenido de T1.\n${BRAND}\n\nContexto:\n${prod.ctx}\n\nREGLAS:\n1. NUNCA empieces con el nombre del producto\n2. Cada variante: ángulo DISTINTO\n3. Gancho: 2 líneas máx, curiosidad inmediata\n4. Contenido listo para publicar en ${canal}\n5. Prompts visuales en inglés, cinematográficos\n6. Prompt audio: tono + pace + emoción\n7. SOLO JSON válido sin markdown`;
 
-  const usr = `Genera ${mult} variantes para:\n- Producto: ${prod.name}\n- Canal: ${canal}\n- Formato: ${formato}\n- Audiencia: ${audiencia}\n- Tono: ${tono}\n- Ángulo base: ${angulo}\n\nJSON exacto sin markdown:\n{\n  "variantes": [\n    {\n      "id": 1,\n      "angulo": "nombre 3-5 palabras",\n      "gancho": "hook listo para usar",\n      "contenido": "contenido completo listo para publicar",\n      "prompt_visual": "prompt en inglés para Runway/Krea/Higgsfield",\n      "prompt_audio": "instrucción ElevenLabs: tono, pace, emoción",\n      "cta": "llamada a la acción"\n    }\n  ]\n}`;
+  const usr=`Genera ${mult} variantes:\n- Producto: ${prod.name}\n- Canal: ${canal}\n- Formato: ${formato}\n- Audiencia: ${audiencia}\n- Tono: ${tono}\n- Ángulo: ${angulo}\n\n{"variantes":[{"id":1,"angulo":"3-5 palabras","gancho":"hook","contenido":"contenido completo","prompt_visual":"english prompt","prompt_audio":"ElevenLabs instruction","cta":"llamada a la acción"}]}`;
 
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system: sys,
-        messages: [{ role: 'user', content: usr }]
-      })
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:sys,messages:[{role:'user',content:usr}]})
     });
-    const data = await res.json();
-    const raw = data.content.filter(b => b.type === 'text').map(b => b.text).join('');
-    const parsed = JSON.parse(raw.replace(/```json|```/g, '').trim());
-    variants = parsed.variantes || [];
-    sPiezas++; sVars += variants.length;
+    const data=await res.json();
+    const raw=data.content.filter(b=>b.type==='text').map(b=>b.text).join('');
+    const parsed=JSON.parse(raw.replace(/```json|```/g,'').trim());
+    variants=parsed.variantes||[];
+    sPiezas++; sVars+=variants.length;
     updateMetrics();
-    renderVariants();
-    addHistory(angulo, canal, variants.length, prod.emoji);
-    showVariant(0);
+    renderOutput(variants,prod,canal);
+    addHistory(angulo,canal,variants.length,prod.emoji);
+    setSteps(3);
     setTab('output');
-  } catch(e) {
-    document.getElementById('outBody').textContent = 'Error al generar. Revisa tu API key y vuelve a intentar.\n\n' + e.message;
+  }catch(e){
+    document.getElementById('outSections').innerHTML=`<div style="color:var(--red-500);font-size:13px">Error al generar. Intenta de nuevo.<br><small style="color:var(--text-muted)">${e.message}</small></div>`;
     setTab('output');
   }
-  btn.disabled = false; txt.textContent = 'Generar de nuevo'; spin.classList.add('hidden');
+  btn.disabled=false; txt.textContent='Generar de nuevo'; spin.classList.add('hidden');
 }
 
-function renderVariants() {
-  document.getElementById('varCount').textContent = variants.length + ' variantes';
-  document.getElementById('varGrid').innerHTML = variants.map((v,i) => `
+function renderOutput(vars,prod,canal){
+  document.getElementById('varCount').textContent=vars.length+' variantes';
+  document.getElementById('varGrid').innerHTML=vars.map((v,i)=>`
     <div class="variant-card ${i===0?'selected':''}" onclick="showVariant(${i})">
-      <div class="variant-label">Variante ${i+1} — ${v.angulo}</div>
+      <div class="variant-num">Variante ${i+1}</div>
+      <div class="variant-angle">${v.angulo}</div>
       <div class="variant-hook">${v.gancho}</div>
-      <div class="variant-sub">Visual: ${(v.prompt_visual||'').substring(0,70)}...</div>
+      <div class="variant-sub">Visual: ${(v.prompt_visual||'').substring(0,65)}...</div>
     </div>`).join('');
+  showVariant(0);
 }
 
-function showVariant(i) {
-  const v = variants[i]; if (!v) return;
-  document.querySelectorAll('.variant-card').forEach((c,idx) => c.classList.toggle('selected', idx===i));
-  document.getElementById('outLabel').textContent = `Variante ${i+1} / ${variants.length} — ${PRODUCTS[curProd]?.name || ''}`;
-  document.getElementById('outBody').textContent =
-    `🎯 ÁNGULO\n${v.angulo}\n\n` +
-    `⚡ GANCHO\n${v.gancho}\n\n` +
-    `📝 CONTENIDO\n${v.contenido}\n\n` +
-    `🎬 PROMPT VISUAL (Runway / Krea / Higgsfield)\n${v.prompt_visual}\n\n` +
-    `🎙 AUDIO (ElevenLabs)\n${v.prompt_audio}\n\n` +
-    `→ CTA\n${v.cta}`;
+function showVariant(i){
+  const v=variants[i]; if(!v)return;
+  document.querySelectorAll('.variant-card').forEach((c,idx)=>c.classList.toggle('selected',idx===i));
+  document.getElementById('outLabel').textContent=`Variante ${i+1} / ${variants.length}`;
+  curVariantText=`ÁNGULO\n${v.angulo}\n\nGANCHO\n${v.gancho}\n\nCONTENIDO\n${v.contenido}\n\nPROMPT VISUAL (Runway / Krea / Higgsfield)\n${v.prompt_visual}\n\nAUDIO (ElevenLabs)\n${v.prompt_audio}\n\nCTA\n${v.cta}`;
+  document.getElementById('outSections').innerHTML=`
+    <div class="out-section">
+      <div class="out-section-title">Ángulo</div>
+      <div class="out-section-body" style="font-family:'Sora',sans-serif;font-size:16px;font-weight:400">${v.angulo}</div>
+    </div>
+    <div class="out-section">
+      <div class="out-section-title">Gancho</div>
+      <div class="out-section-body" style="font-weight:600;color:var(--text)">${v.gancho}</div>
+    </div>
+    <div class="out-section">
+      <div class="out-section-title">Contenido</div>
+      <div class="out-section-body">${v.contenido}</div>
+    </div>
+    <div class="out-section">
+      <div class="out-section-title">Prompt visual — Runway / Krea / Higgsfield</div>
+      <div class="out-section-body" style="font-style:italic">${v.prompt_visual}</div>
+    </div>
+    <div class="out-section">
+      <div class="out-section-title">Audio — ElevenLabs</div>
+      <div class="out-section-body">${v.prompt_audio}</div>
+    </div>
+    <div class="out-section">
+      <div class="out-section-title">CTA</div>
+      <div class="out-section-body" style="font-weight:600;color:var(--red-500)">${v.cta}</div>
+    </div>`;
 }
 
-function copyOut() {
-  navigator.clipboard.writeText(document.getElementById('outBody').textContent);
-  const b = event.target; b.textContent = '✓ Copiado'; setTimeout(()=>b.textContent='Copiar',1500);
+function copyOut(){
+  navigator.clipboard.writeText(curVariantText);
+  const b=event.target; b.textContent='✓ Copiado'; setTimeout(()=>b.textContent='Copiar',1500);
 }
 
-function updateMetrics() {
-  document.getElementById('mPiezas').textContent = sPiezas;
-  document.getElementById('mVars').textContent = sVars;
-  document.getElementById('bPiezas').style.width = Math.min(sPiezas*10,100)+'%';
-  document.getElementById('bVars').style.width = Math.min(sVars*5,100)+'%';
-  document.getElementById('benchPill').textContent = sVars + ' variantes generadas';
+function updateMetrics(){
+  document.getElementById('mP').textContent=sPiezas;
+  document.getElementById('mV').textContent=sVars;
+  document.getElementById('bP').style.width=Math.min(sPiezas*10,100)+'%';
+  document.getElementById('bV').style.width=Math.min(sVars*5,100)+'%';
+  document.getElementById('benchPill').textContent=sVars+' variantes';
 }
 
-function addHistory(angulo, canal, count, emoji) {
-  const now = new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'});
-  const html = `<div class="h-item"><div class="h-meta">${now} · ${emoji} · ${canal} · ${count} var.</div><div class="h-text">${angulo}</div></div>`;
-  ['historyList','rpHist'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el.querySelector('div[style]')) el.innerHTML = '';
-    el.innerHTML = html + el.innerHTML;
-  });
+function addHistory(angulo,canal,count,emoji){
+  const now=new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'});
+  const html=`<div class="h-item"><div class="h-meta">${now} · ${emoji} · ${canal} · ${count} var.</div><div class="h-text">${angulo}</div></div>`;
+  const el=document.getElementById('histList');
+  if(el.querySelector('div[style]'))el.innerHTML='';
+  el.innerHTML=html+el.innerHTML;
 }
 
-function toggleTimer() {
-  if (timerOn) {
-    clearInterval(timerIv); timerOn = false;
-    document.getElementById('timerBtn').textContent = 'Continuar';
-    document.getElementById('timerSub').textContent = 'Pausado';
-  } else {
-    timerOn = true;
-    document.getElementById('timerBtn').textContent = 'Pausar';
-    document.getElementById('timerSub').textContent = 'Sprint en progreso...';
-    timerIv = setInterval(() => {
+function toggleTimer(){
+  if(timerOn){
+    clearInterval(timerIv); timerOn=false;
+    document.getElementById('timerBtn').textContent='Continuar';
+    document.getElementById('timerSub').textContent='Pausado';
+    document.getElementById('sprintDot').style.background='var(--yellow-500)';
+  }else{
+    timerOn=true;
+    document.getElementById('timerBtn').textContent='Pausar';
+    document.getElementById('timerSub').textContent='Sprint en progreso...';
+    document.getElementById('sprintDot').style.background='var(--red-500)';
+    timerIv=setInterval(()=>{
       timerSec--;
-      sprintMin = Math.floor((1500 - timerSec) / 60);
-      document.getElementById('mTime').textContent = sprintMin + ' min';
-      document.getElementById('bTime').style.width = Math.min((sprintMin/25)*100,100)+'%';
-      if (timerSec <= 0) {
-        clearInterval(timerIv); timerOn = false;
-        document.getElementById('timerBtn').textContent = 'Iniciar';
-        document.getElementById('timerSub').textContent = '¡Sprint completado!';
-        timerSec = 0;
+      sprintMin=Math.floor((1500-timerSec)/60);
+      document.getElementById('mT').textContent=sprintMin+' min';
+      document.getElementById('bT').style.width=Math.min((sprintMin/25)*100,100)+'%';
+      if(timerSec<=0){
+        clearInterval(timerIv);timerOn=false;
+        document.getElementById('timerBtn').textContent='Iniciar';
+        document.getElementById('timerSub').textContent='¡Sprint completado!';
+        document.getElementById('sprintDot').style.background='var(--green-500)';
+        timerSec=0;
       }
-      const m = Math.floor(timerSec/60), s = timerSec%60;
-      document.getElementById('timerNum').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-    }, 1000);
+      const m=Math.floor(timerSec/60),s=timerSec%60;
+      document.getElementById('timerNum').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    },1000);
   }
 }
 
-function resetTimer() {
-  clearInterval(timerIv); timerOn = false; timerSec = 1500;
-  document.getElementById('timerNum').textContent = '25:00';
-  document.getElementById('timerBtn').textContent = 'Iniciar';
-  document.getElementById('timerSub').textContent = 'Jake Knapp — máximo foco';
+function resetTimer(){
+  clearInterval(timerIv);timerOn=false;timerSec=1500;
+  document.getElementById('timerNum').textContent='25:00';
+  document.getElementById('timerBtn').textContent='Iniciar';
+  document.getElementById('timerSub').textContent='Jake Knapp — máximo foco';
+  document.getElementById('sprintDot').style.background='var(--green-500)';
 }
 
-document.getElementById('angulo').addEventListener('input', function() { this.dataset.edited = '1'; });
+document.getElementById('angulo').addEventListener('input',function(){this.dataset.edited='1';});
 </script>
 </body>
 </html>
